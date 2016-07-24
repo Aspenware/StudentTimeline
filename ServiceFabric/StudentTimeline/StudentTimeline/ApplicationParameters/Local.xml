@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="fabric:/StudentTimeline" xmlns="http://schemas.microsoft.com/2011/01/fabric">
+  <Parameters>
+    <Parameter Name="UserSvc_PartitionCount" Value="1" />
+    <Parameter Name="UserSvc_MinReplicaSetSize" Value="3" />
+    <Parameter Name="UserSvc_TargetReplicaSetSize" Value="3" />
+    <Parameter Name="CourseSvc_PartitionCount" Value="1" />
+    <Parameter Name="CourseSvc_MinReplicaSetSize" Value="3" />
+    <Parameter Name="CourseSvc_TargetReplicaSetSize" Value="3" />
+    <Parameter Name="TaskSvc_PartitionCount" Value="1" />
+    <Parameter Name="TaskSvc_MinReplicaSetSize" Value="3" />
+    <Parameter Name="TaskSvc_TargetReplicaSetSize" Value="3" />
+    <Parameter Name="WebApi_InstanceCount" Value="1" />
+  </Parameters>
+</Application>

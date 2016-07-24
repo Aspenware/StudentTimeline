@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{A07B5EB6-E848-4116-A8D0-A826331D98C6}") = "StudentTimeline", "StudentTimeline\StudentTimeline.sfproj", "{7B49F6F8-269F-4732-88F4-DFC3A71C4B4C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentTimeline.WebApi", "StudentTimeline.WebApi\StudentTimeline.WebApi.csproj", "{CF6381BE-57FA-44BB-ADA3-BA734C40A342}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentTimeline.TaskSvc", "StudentTimeline.TaskSvc\StudentTimeline.TaskSvc.csproj", "{65BB9101-E926-4A63-AEF7-0608F59FBE19}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentTimeline.CourseSvc", "StudentTimeline.CourseSvc\StudentTimeline.CourseSvc.csproj", "{291CDF4D-CAD4-49BB-ACDD-83F015EC4FE2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentTimeline.UserSvc", "StudentTimeline.UserSvc\StudentTimeline.UserSvc.csproj", "{A5F67123-F855-41DC-B067-D4339B731BE7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7B49F6F8-269F-4732-88F4-DFC3A71C4B4C}.Debug|x64.ActiveCfg = Debug|x64
+		{7B49F6F8-269F-4732-88F4-DFC3A71C4B4C}.Debug|x64.Build.0 = Debug|x64
+		{7B49F6F8-269F-4732-88F4-DFC3A71C4B4C}.Debug|x64.Deploy.0 = Debug|x64
+		{7B49F6F8-269F-4732-88F4-DFC3A71C4B4C}.Release|x64.ActiveCfg = Release|x64
+		{7B49F6F8-269F-4732-88F4-DFC3A71C4B4C}.Release|x64.Build.0 = Release|x64
+		{7B49F6F8-269F-4732-88F4-DFC3A71C4B4C}.Release|x64.Deploy.0 = Release|x64
+		{CF6381BE-57FA-44BB-ADA3-BA734C40A342}.Debug|x64.ActiveCfg = Debug|x64
+		{CF6381BE-57FA-44BB-ADA3-BA734C40A342}.Debug|x64.Build.0 = Debug|x64
+		{CF6381BE-57FA-44BB-ADA3-BA734C40A342}.Release|x64.ActiveCfg = Release|x64
+		{CF6381BE-57FA-44BB-ADA3-BA734C40A342}.Release|x64.Build.0 = Release|x64
+		{65BB9101-E926-4A63-AEF7-0608F59FBE19}.Debug|x64.ActiveCfg = Debug|x64
+		{65BB9101-E926-4A63-AEF7-0608F59FBE19}.Debug|x64.Build.0 = Debug|x64
+		{65BB9101-E926-4A63-AEF7-0608F59FBE19}.Release|x64.ActiveCfg = Release|x64
+		{65BB9101-E926-4A63-AEF7-0608F59FBE19}.Release|x64.Build.0 = Release|x64
+		{291CDF4D-CAD4-49BB-ACDD-83F015EC4FE2}.Debug|x64.ActiveCfg = Debug|x64
+		{291CDF4D-CAD4-49BB-ACDD-83F015EC4FE2}.Debug|x64.Build.0 = Debug|x64
+		{291CDF4D-CAD4-49BB-ACDD-83F015EC4FE2}.Release|x64.ActiveCfg = Release|x64
+		{291CDF4D-CAD4-49BB-ACDD-83F015EC4FE2}.Release|x64.Build.0 = Release|x64
+		{A5F67123-F855-41DC-B067-D4339B731BE7}.Debug|x64.ActiveCfg = Debug|x64
+		{A5F67123-F855-41DC-B067-D4339B731BE7}.Debug|x64.Build.0 = Debug|x64
+		{A5F67123-F855-41DC-B067-D4339B731BE7}.Release|x64.ActiveCfg = Release|x64
+		{A5F67123-F855-41DC-B067-D4339B731BE7}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
