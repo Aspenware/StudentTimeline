@@ -15,4 +15,3 @@ C:\Dev\StudentTimeline\ServiceFabric\StudentTimeline\StudentTimeline.UserSvc\bin
 C:\Dev\StudentTimeline\ServiceFabric\StudentTimeline\StudentTimeline.UserSvc\bin\x64\Debug\en-us\Microsoft.ServiceFabric.Internal.Strings.resources.dll
 C:\Dev\StudentTimeline\ServiceFabric\StudentTimeline\StudentTimeline.UserSvc\obj\x64\Debug\StudentTimeline.UserSvc.exe
 C:\Dev\StudentTimeline\ServiceFabric\StudentTimeline\StudentTimeline.UserSvc\obj\x64\Debug\StudentTimeline.UserSvc.pdb
-C:\Dev\StudentTimeline\ServiceFabric\StudentTimeline\StudentTimeline.UserSvc\obj\x64\Debug\StudentTimeline.UserSvc.csprojResolveAssemblyReference.cache

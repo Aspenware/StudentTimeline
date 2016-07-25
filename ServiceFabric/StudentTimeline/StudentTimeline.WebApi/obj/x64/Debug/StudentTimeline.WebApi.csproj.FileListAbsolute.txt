@@ -30,4 +30,3 @@ C:\Dev\StudentTimeline\ServiceFabric\StudentTimeline\StudentTimeline.WebApi\bin\
 C:\Dev\StudentTimeline\ServiceFabric\StudentTimeline\StudentTimeline.WebApi\bin\x64\Debug\en-us\Microsoft.ServiceFabric.Internal.Strings.resources.dll
 C:\Dev\StudentTimeline\ServiceFabric\StudentTimeline\StudentTimeline.WebApi\obj\x64\Debug\StudentTimeline.WebApi.exe
 C:\Dev\StudentTimeline\ServiceFabric\StudentTimeline\StudentTimeline.WebApi\obj\x64\Debug\StudentTimeline.WebApi.pdb
-C:\Dev\StudentTimeline\ServiceFabric\StudentTimeline\StudentTimeline.WebApi\obj\x64\Debug\StudentTimeline.WebApi.csprojResolveAssemblyReference.cache
