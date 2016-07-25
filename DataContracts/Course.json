@@ -1,33 +1,39 @@
 {
-	"Id": "d0c163db-b559-4698-95d0-0c8f3982f49b",
-	"Title": "EC-305",
-	"Description": "Economic Theories",
-	"Tasks": [{
-		"Id": "d0c153db-b559-4698-95d0-0c8f3982f49b",
-		"Title": "First Exam",
-		"Description": "This exam will cover the first 3 chapters",
-		"TaskType": "{"Id": "d0c173db-b559-4698-95d0-0c8f3982f49b", "Title": "Exam",}",
-		"DueDate": "9/15/2016"
+	"id": "d0c163db-b559-4698-95d0-0c8f3982f49b",
+	"title": "EC-305",
+	"description": "Economic Theories",
+	"tasks": [{
+		"id": "d0c153db-b559-4698-95d0-0c8f3982f49b",
+		"title": "First Exam",
+		"description": "This exam will cover the first 3 chapters",
+		"taskType": {
+			"id": "d0c173db-b559-4698-95d0-0c8f3982f49b", 
+			"title": "Exam"
+		},
+		"dueDate": "9/15/2016"
 	},
 	{
-		"Id": "d0c143db-b559-4698-95d0-0c8f3982f49b",
-		"Title": "Second Exam",
-		"Description": "This exam will cover chapters 4 - 6",
-		"TaskType": "{"Id": "d0c173db-b559-4698-95d0-0c8f3982f49b", "Title": "Exam",}",
-		"DueDate": "10/15/2016"
+		"id": "d0c143db-b559-4698-95d0-0c8f3982f49b",
+		"title": "Second Exam",
+		"description": "This exam will cover chapters 4 - 6",
+		"taskType": {
+			"id": "d0c173db-b559-4698-95d0-0c8f3982f49b", 
+			"title": "Exam"
+		},
+		"dueDate": "10/15/2016"
 	}],
-	"Users": [{
-		"Id": "d0c173db-b559-4698-95d0-0c8f3982f49b",
-		"Name": "John Smith",
-		"Email": "j.smith@aspenware.com",
-		"Blurb": "I am a junior majoring in Economics",
-		"ProfileImageUrl": "https: \azure.storgage.com\image1.jpg"
+	"users": [{
+		"id": "d0c173db-b559-4698-95d0-0c8f3982f49b",
+		"name": "John Smith",
+		"email": "j.smith@aspenware.com",
+		"blurb": "I am a junior majoring in Economics",
+		"profileImageUrl": "https://azure.storgage.com/image1.jpg"
 	},
 	{
-		"Id": "d0c193db-b559-4698-95d0-0c8f3982f49b",
-		"Name": "Joe Holt",
-		"Email": "j.Holt@aspenware.com",
-		"Blurb": "I am a junior minoring in Economics",
-		"ProfileImageUrl": "https: \azure.storgage.com\image2.jpg"
+		"id": "d0c193db-b559-4698-95d0-0c8f3982f49b",
+		"name": "Joe Holt",
+		"email": "j.Holt@aspenware.com",
+		"blurb": "I am a junior minoring in Economics",
+		"profileImageUrl": "https://azure.storgage.com/image2.jpg"
 	}]
 }
