@@ -1,1 +1,0 @@
-C:\Dev\StudentTimeline\ServiceFabric\StudentTimeline\StudentTimeline\obj\x64\Debug\StudentTimeline.sfprojResolveAssemblyReference.cache
