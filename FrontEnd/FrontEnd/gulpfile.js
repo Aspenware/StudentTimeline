@@ -5,38 +5,20 @@ var del = require('del');
 var browserSync = require('browser-sync');
 var gulp = require('gulp');
 var gutil = require('gulp-util');
-var _ = require('lodash');
-var $ = require('gulp-load-plugins')({ lazy: true });
-
-var colors = $.util.colors;
-var envenv = $.util.env;
-
 var bower = require('bower');
 var concat = require('gulp-concat');
 var sass = require('gulp-sass');
 var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
 var sh = require('shelljs');
+var _ = require('lodash');
+var $ = require('gulp-load-plugins')({ lazy: true });
+var colors = $.util.colors;
+var envenv = $.util.env;
 
 var paths = {
   sass: ['./scss/**/*.scss']
 };
-
-gulp.task('default', ['sass']);
-
-gulp.task('sass', function(done) {
-  gulp.src('./scss/ionic.app.scss')
-    .pipe(sass())
-    .on('error', sass.logError)
-    .pipe(gulp.dest('./www/css/'))
-    .pipe(minifyCss({
-      keepSpecialComments: 0
-    }))
-    .pipe(rename({ extname: '.min.css' }))
-    .pipe(gulp.dest('./www/css/'))
-    .on('end', done);
-});
-
 
 /**
  * yargs variables can be passed in to alter the behavior, when present.
@@ -54,7 +36,6 @@ gulp.task('sass', function(done) {
  */
 gulp.task('help', $.taskListing);
 gulp.task('default', ['help']);
-
 
 /**
  * Create $templateCache from the html templates
@@ -120,7 +101,6 @@ gulp.task('build', ['optimize'], function() {
   };
   del(config.temp);
   log(msg);
-  notify(msg);
 });
 
 /**
@@ -166,6 +146,22 @@ gulp.task('optimize', ['inject'], function() {
     // Replace the file names in the html with rev numbers
     .pipe($.revReplace())
     .pipe(gulp.dest(config.build));
+});
+
+/**
+ * Compile sass files and minify to css
+ */
+gulp.task('sass', function(done) {
+  gulp.src('./scss/ionic.app.scss')
+    .pipe(sass())
+    .on('error', sass.logError)
+    .pipe(gulp.dest('./www/css/'))
+    .pipe(minifyCss({
+      keepSpecialComments: 0
+    }))
+    .pipe(rename({ extname: '.min.css' }))
+    .pipe(gulp.dest('./www/css/'))
+    .on('end', done);
 });
 
 /**
@@ -268,7 +264,7 @@ function clean(path, done) {
  * @returns {Stream}   The stream
  */
 function inject(src, label, order) {
-  var options = {  };
+  var options = {relative: true};
   if (label) {
     options.name = 'inject:' + label;
   }

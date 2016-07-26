@@ -1,8 +1,7 @@
 {
-  "name": "ionic-sidemenu",
+  "name": "student-timeline",
   "private": true,
   "devDependencies": {
-    "ionic": "driftyco/ionic-bower#1.2.4"
   },
   "resolutions": {
     "angular-sanitize": "^1.5.8",
@@ -12,6 +11,7 @@
   "dependencies": {
     "angular": "^1.5.8",
     "angular-sanitize": "^1.5.8",
-    "angular-ui-router": "^0.3.1"
+    "angular-ui-router": "^0.3.1",
+    "ionic": "driftyco/ionic-bower#1.2.4"
   }
 }

@@ -1,12 +1,13 @@
 module.exports = function() {
 	var client = './www/',
-		clientApp = client + 'js',
+		clientApp = client + 'js/',
 		wiredep = require('wiredep'),
-		bowerFiles = wiredep({ devDependencies: true })['js'],
+		bowerFiles = wiredep({ devDependencies: true }).js,
 		temp = './.tmp/',
 		bower = {
+			json: require('./bower.json'),
 			directory: client + 'lib/',
-			ignorePath: '../..'
+			ignorePath: '..'
 		},
 		nodeModules = 'node_modules';
 
@@ -16,21 +17,18 @@ module.exports = function() {
 		*/
 		// all javascript that we want to vet
 		alljs: [
-			'./www/**/*.js',
-			'./*.js'
+			'./**/*.js'
 		],
 		client: client,
-		build: client + 'build/',
+		build: '.build/',
 		css: temp + 'styles.css',
 		html: client + '**/*.html',
-		htmltemplates: clientApp + '**/*.html',
-		images: client + 'img/**/*.*',
+		htmltemplates: [client + '**/*.html', '!' + client + '**/index.html'],
+        images: client + 'img/**/*.*',
 		index: client + 'index.html',
-		// app js, with no specs
 		js: [
 			clientApp + '**/*.module.js',
-			clientApp + '**/*.js',
-			'!' + clientApp + '**/*.spec.js'
+			clientApp + '**/*.js'
 		],
 		jsOrder: [
 			'**/app.module.js',
@@ -38,6 +36,7 @@ module.exports = function() {
 			'**/*.js'
 		],
 		sass: client + 'css/styles.sass',
+        temp: temp,
 
 		/**
 		* optimized files
@@ -58,7 +57,7 @@ module.exports = function() {
 		templateCache: {
 			file: 'templates.js',
 			options: {
-				module: 'app.core',
+				module: 'app',
 				root: 'www/',
 				standalone: false
 			}
@@ -71,25 +70,18 @@ module.exports = function() {
 		packages: [
 			'./package.json',
 			'./bower.json'
-		],
-
-		/**
-		* Node settings
-		*/
-		// nodeServer: server + 'app.js',
-		// defaultPort: '8001'
+		]
 	};
 
   /**
    * wiredep and bower settings
    */
 	config.getWiredepDefaultOptions = function() {
-		var options = {
+		return {
 			bowerJson: config.bower.json,
 			directory: config.bower.directory,
 			ignorePath: config.bower.ignorePath
 		};
-		return options;
 	};
 
 	return config;
