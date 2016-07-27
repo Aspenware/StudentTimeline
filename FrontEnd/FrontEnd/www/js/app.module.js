@@ -2,9 +2,15 @@
 	'use strict';
 
 	angular.module('app', [
+        /* angular modules */
+        'ionic',
+
+        /* custom app modules */
 		'app.core',
-		'app.layout',
-		'app.users',
-		'app.tasks'
+        'app.config',
+        'app.shared',
+
+        /* main site features */
+        'app.profile'
 	]);
 })();
