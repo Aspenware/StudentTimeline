@@ -1,14 +1,20 @@
-<ion-view view-title="ProfileForm">
+<ion-view view-title="Profile">
   <ion-content>
     <form name="ProfileForm">
-    <fieldset>
-        <label for="Name">Name</label>
-        <input type="text" name="Name">
+        <fieldset>
+            <label for="Name">Name</label>
+            <input type="text" name="Name">
 
-        <label for="Email">Email</label>
-        <input type="email" name="Email">
-    </fieldset>
-    <button type="submit">Submit</button>
-</form>
+            <label for="Email">Email</label>
+            <input type="email" name="Email">
+
+            <label for="Blurb">Description</label>
+            <textarea></textarea>
+
+            <label for="ProfileImage">Profile Image URL</label>
+            <input type="url" name="ProfileImage">
+        </fieldset>
+        <button type="submit">Submit</button>
+    </form>
   </ion-content>
 </ion-view>
