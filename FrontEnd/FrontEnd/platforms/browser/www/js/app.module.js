@@ -6,11 +6,12 @@
         'ionic',
 
         /* custom app modules */
-		'app.core',
+	'app.core',
         'app.config',
         'app.shared',
 
         /* main site features */
-        'app.profile'
+        'app.profile',
+        'app.tasks'
 	]);
 })();

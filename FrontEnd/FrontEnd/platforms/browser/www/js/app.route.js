@@ -33,7 +33,7 @@
             }
         });
 
-        var otherwise = '/';
+        var otherwise = '/tasks';
 
         routerHelper.configureStates(getStates(), otherwise);
 
@@ -67,11 +67,29 @@
             {
                 state: 'root.profile',
                 config: {
-                    url: '/',
+                    url: '/profile',
                     templateUrl: 'js/features/profile/profile.html',
                     title: 'Profile',
                     controller: 'ProfileController',
                     controllerAs: 'vm'
+                }
+            },
+            {
+                state: 'root.tasks',
+                config: {
+                    url: '/tasks',
+                    templateUrl: 'js/features/tasks/tasks.html',
+                    title: 'Tasks',
+                    controller: 'TasksController',
+                    controllerAs: 'vm',
+                    views: {
+                        "tab-day": {
+                            templateUrl: "js/features/tasks/tasksDay.html"
+                        },
+                        "tab-week": {
+                            templateUrl: "js/features/tasks/tasksWeek.html"
+                        }
+                    }
                 }
             },
             {
