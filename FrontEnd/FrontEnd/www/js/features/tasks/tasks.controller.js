@@ -6,7 +6,7 @@
         .controller('TasksController', TasksController);
 
     /* @ngInject */
-    function TasksController($stateParams, $state, $scope) {
+    function TasksController($stateParams, tasksService) {
 
         var vm = this;
 

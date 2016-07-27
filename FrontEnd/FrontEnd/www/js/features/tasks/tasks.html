@@ -1,19 +1,14 @@
 <ion-view view-title="Tasks">
-  <ion-content>
-
-    <h1>I'm all up in yo tasks!</h1>
-
-    <ion-tabs>
-        <ion-tab title="Day" href="#">
-            <ion-view></ion-view>
-        </ion-tab>
-        <ion-tab title="Week" href="#">
-            <ion-view></ion-view>
-        </ion-tab>
-        <ion-tab title="Month" href="#">
-            <ion-view></ion-view>
-        </ion-tab>
-    </ion-tabs>
+    <ion-content>
+        <h1>I'm all up in yo tasks!</h1>
     </ion-content>
 </ion-view>
 
+<ion-tabs class="tabs-energized">
+    <ion-tab title="Day" ui-sref="root.tasks.day">
+        <ion-nav-view name="tab-dayTasks"></ion-nav-view>
+    </ion-tab>
+    <ion-tab title="Week" ui-sref="root.tasks.week">
+        <ion-nav-view name="tab-weekTasks"></ion-nav-view>
+    </ion-tab>
+</ion-tabs>

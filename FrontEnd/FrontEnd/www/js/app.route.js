@@ -33,7 +33,7 @@
             }
         });
 
-        var otherwise = '/tasks';
+        var otherwise = '/tasks/day';
 
         routerHelper.configureStates(getStates(), otherwise);
 
@@ -88,6 +88,34 @@
                     views: {
                         'mainContent': {
                             templateUrl: 'js/features/tasks/tasks.html'
+                        }
+                    }
+                }
+            },
+            {
+                state: 'root.tasks.day',
+                config: {
+                    url: '/day',
+                    title: 'Daily Tasks',
+                    controller: 'TasksController',
+                    controllerAs: 'vm',
+                    views: {
+                        'tab-dayTasks': {
+                            templateUrl: 'js/features/tasks/tasksDay.html'
+                        }
+                    }
+                }
+            },
+            {
+                state: 'root.tasks.week',
+                config: {
+                    url: '/week',
+                    title: 'Weekly Tasks',
+                    controller: 'TasksController',
+                    controllerAs: 'vm',
+                    views: {
+                        'tab-weekTasks': {
+                            templateUrl: 'js/features/tasks/tasksWeek.html'
                         }
                     }
                 }
