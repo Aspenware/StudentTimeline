@@ -68,26 +68,26 @@
                 state: 'root.profile',
                 config: {
                     url: '/profile',
-                    templateUrl: 'js/features/profile/profile.html',
                     title: 'Profile',
                     controller: 'ProfileController',
-                    controllerAs: 'vm'
+                    controllerAs: 'vm',
+                    views: {
+                        'mainContent': {
+                            templateUrl: 'js/features/profile/profile.html'
+                        }
+                    }
                 }
             },
             {
                 state: 'root.tasks',
                 config: {
                     url: '/tasks',
-                    templateUrl: 'js/features/tasks/tasks.html',
                     title: 'Tasks',
                     controller: 'TasksController',
                     controllerAs: 'vm',
                     views: {
-                        "tab-day": {
-                            templateUrl: "js/features/tasks/tasksDay.html"
-                        },
-                        "tab-week": {
-                            templateUrl: "js/features/tasks/tasksWeek.html"
+                        'mainContent': {
+                            templateUrl: 'js/features/tasks/tasks.html'
                         }
                     }
                 }
