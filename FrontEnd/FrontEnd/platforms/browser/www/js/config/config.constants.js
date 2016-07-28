@@ -21,6 +21,9 @@
             //API urls
             baseServiceUrl: '/api',
             profilesUrl: '/profiles',
-            tasksUrl: '/tasks'
+            tasksUrl: '/tasks',
+
+            //localStorage keys
+            tasksStorageKey: 'tasks'
         });
 })();

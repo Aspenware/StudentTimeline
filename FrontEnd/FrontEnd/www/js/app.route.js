@@ -65,62 +65,6 @@
                 }
             },
             {
-                state: 'root.profile',
-                config: {
-                    url: '/profile',
-                    title: 'Profile',
-                    controller: 'ProfileController',
-                    controllerAs: 'vm',
-                    views: {
-                        'mainContent': {
-                            templateUrl: 'js/features/profile/profile.html'
-                        }
-                    }
-                }
-            },
-            {
-                state: 'root.tasks',
-                config: {
-                    url: '/tasks',
-                    title: 'Tasks',
-                    controller: 'TasksController',
-                    controllerAs: 'vm',
-                    views: {
-                        'mainContent': {
-                            templateUrl: 'js/features/tasks/tasks.html'
-                        }
-                    }
-                }
-            },
-            {
-                state: 'root.tasks.day',
-                config: {
-                    url: '/day',
-                    title: 'Daily Tasks',
-                    controller: 'TasksController',
-                    controllerAs: 'vm',
-                    views: {
-                        'tab-dayTasks': {
-                            templateUrl: 'js/features/tasks/tasksDay.html'
-                        }
-                    }
-                }
-            },
-            {
-                state: 'root.tasks.week',
-                config: {
-                    url: '/week',
-                    title: 'Weekly Tasks',
-                    controller: 'TasksController',
-                    controllerAs: 'vm',
-                    views: {
-                        'tab-weekTasks': {
-                            templateUrl: 'js/features/tasks/tasksWeek.html'
-                        }
-                    }
-                }
-            },
-            {
                 state: 'root.404',
                 config: {
                     url: '/404',

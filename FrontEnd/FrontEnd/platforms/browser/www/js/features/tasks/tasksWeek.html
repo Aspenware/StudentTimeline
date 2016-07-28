@@ -1,5 +1,15 @@
 <ion-view>
     <ion-content class="has-header">
         <h1>Tasks - Week</h1>
+
+        <ul>
+            <li ng-repeat="task in vm.tasks">
+                id = {{task.id}}<br>
+                title = {{task.title}}<br>
+                description = {{task.description}}<br>
+                taskType = {{task.taskType}}<br>
+                dueDate = {{task.dueDate}}<br>
+            </li>
+        </ul>
     </ion-content>
 </ion-view>

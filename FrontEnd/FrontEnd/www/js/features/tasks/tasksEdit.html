@@ -1,0 +1,32 @@
+<ion-view>
+    <ion-content class="has-header">
+        <h1>Tasks - New</h1>
+
+        <form name="ProfileForm">
+            <fieldset>
+                <label for="Title">Title</label>
+                <input type="text" 
+                    name="Title"
+                    ng-model="vm.task.title">
+
+                <label for="Description">Description</label>
+                <input type="text"
+                    name="Description"
+                    ng-model="vm.task.description">
+
+                <label for="TaskType">Task Type</label>
+                <input type="text"
+                    name="TaskType"
+                    ng-model="vm.task.taskType">
+
+                <label for="DueDate">Due Date</label>
+                <input type="text"
+                    name="DueDate"
+                    ng-model="vm.task.dueDate">
+            </fieldset>
+            <button type="submit"
+                ng-click="vm.saveTask()">Submit</button>
+             
+        </form>
+    </ion-content>
+</ion-view>
