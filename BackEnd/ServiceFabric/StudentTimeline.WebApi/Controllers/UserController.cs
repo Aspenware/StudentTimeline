@@ -1,28 +1,64 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Web.Http;
+using Microsoft.ServiceFabric.Services.Remoting.Client;
+using Newtonsoft.Json;
+using StudentTimeline.Common;
+using StudentTimeline.UserModel;
 
 namespace StudentTimeline.WebApi.Controllers
 {
     public class UserController : ApiController
     {
-        // GET api/values 
+
+        private const string UserServiceName = "StudentTimeline.UserSvc";
+
+        // GET api/User 
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
         }
 
-        // GET api/values/5 
-        public string Get(int id)
+        // GET api/User/5 
+        public Task<User> Get(int id)
         {
-            return "value";
+            UserId userId = new UserId();
+
+            ServiceUriBuilder builder = new ServiceUriBuilder(UserServiceName);
+            IUserSvc userServiceClient = ServiceProxy.Create<IUserSvc>(builder.ToUri(), userId.GetPartitionKey());
+
+            try
+            {
+                return userServiceClient.GetUserByIDAsync(userId);
+            }
+            catch (Exception ex)
+            {
+                ServiceEventSource.Current.Message("User Controller: Exception getting {0}: {1}", id, ex);
+                throw;
+            }
         }
 
-        // POST api/values 
-        public void Post([FromBody]string value)
+        // POST api/User 
+        public Task<bool> Post([FromBody]string value)
         {
+            User thisUser = JsonConvert.DeserializeObject<User>(value);
+
+            ServiceUriBuilder builder = new ServiceUriBuilder(UserServiceName);
+            IUserSvc userServiceClient = ServiceProxy.Create<IUserSvc>(builder.ToUri(), thisUser.Id.GetPartitionKey());
+
+            try
+            {
+                return userServiceClient.CreateUserAsync(thisUser);
+            }
+            catch (Exception ex)
+            {
+                ServiceEventSource.Current.Message("User Controller: Exception creating {0}: {1}", thisUser, ex);
+                throw;
+            }
         }
 
-        // PUT api/values/5 
+        // PUT api/User/5 
         public void Put(int id, [FromBody]string value)
         {
         }
