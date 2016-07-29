@@ -3,18 +3,26 @@
     <form name="ProfileForm">
         <fieldset>
             <label for="Name">Name</label>
-            <input type="text" name="Name">
+            <input type="text"
+                name="Name"
+                ng-model="vm.profile.name">
 
             <label for="Email">Email</label>
-            <input type="email" name="Email">
+            <input type="email"
+                name="Email"
+                ng-model="vm.profile.email">
 
             <label for="Blurb">Description</label>
-            <textarea></textarea>
+            <input type="text"
+                name="Description"
+                ng-model="vm.profile.blurb">
 
             <label for="ProfileImage">Profile Image URL</label>
-            <input type="url" name="ProfileImage">
+            <input type="url"
+                name="ProfileImage"
+                ng-model="vm.profile.profileImageUrl">
         </fieldset>
-        <button type="submit">Submit</button>
+        <button type="submit" ng-click="vm.saveProfile()">Submit</button>
     </form>
   </ion-content>
 </ion-view>

@@ -26,11 +26,11 @@
                 config: {
                     url: '/profile',
                     title: 'Profile',
-                    controller: 'ProfileController',
-                    controllerAs: 'vm',
                     views: {
                         'mainContent': {
-                            templateUrl: 'js/features/profile/profile.html'
+                            templateUrl: 'js/features/profile/profile.html',
+                            controller: 'ProfileController',
+                            controllerAs: 'vm'
                         }
                     }
                 }

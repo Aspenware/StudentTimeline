@@ -30,7 +30,8 @@
                         'mainContent': {
                             templateUrl: 'js/features/tasks/tasks.html'
                         }
-                    }
+                    },
+                    abstract: true
                 }
             },
             {
@@ -38,8 +39,6 @@
                 config: {
                     url: '/day',
                     title: 'Daily Tasks',
-                    controller: 'TasksViewController',
-                    controllerAs: 'vm',
                     views: {
                         'tab-dayTasks': {
                             templateUrl: 'js/features/tasks/tasksDay.html'
@@ -52,8 +51,6 @@
                 config: {
                     url: '/week',
                     title: 'Weekly Tasks',
-                    controller: 'TasksViewController',
-                    controllerAs: 'vm',
                     views: {
                         'tab-weekTasks': {
                             templateUrl: 'js/features/tasks/tasksWeek.html'
@@ -68,7 +65,9 @@
                     title: 'New Task',
                     views: {
                         'tab-newTask': {
-                            templateUrl: 'js/features/tasks/tasksEdit.html'
+                            templateUrl: 'js/features/tasks/tasksEdit.html',
+                            controller: 'TasksEditController',
+                            controllerAs: 'vm'
                         }
                     }
                 }

@@ -71,14 +71,6 @@
                     templateUrl: 'templates/404.html',
                     title: '404'
                 }
-            },
-            {
-                state: 'root.login',
-                config: {
-                    controller: function(config) {
-                        window.location.href = config.appURL;
-                    }
-                }
             }
         ];
     }

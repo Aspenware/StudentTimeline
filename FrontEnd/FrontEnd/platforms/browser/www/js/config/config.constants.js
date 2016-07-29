@@ -24,6 +24,7 @@
             tasksUrl: '/tasks',
 
             //localStorage keys
-            tasksStorageKey: 'tasks'
+            tasksStorageKey: 'tasks',
+            profileStorageKey: 'profile'
         });
 })();

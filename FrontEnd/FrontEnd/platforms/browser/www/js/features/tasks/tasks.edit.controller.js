@@ -6,7 +6,7 @@
         .controller('TasksEditController', TasksEditController);
 
     /* @ngInject */
-    function TasksEditController($stateParams, $state, tasksService) {
+    function TasksEditController(tasksService) {
 
         //var vm = this;
         //vm.taskName = $stateParams.taskName;
@@ -15,25 +15,25 @@
         //viewmodel functions
         //vm.saveTask = saveTask;
 
-        init();
+        // init();
 
-        function init() {
-            //if name parameter is passed in, grab the task
-            // if(vm.taskName) {
-            //     tasksService.getTask(vm.taskName).then(function(task) {
-            //         vm.task = task;
-            //     });
-            // }
+        // function init() {
+        //     //if name parameter is passed in, grab the task
+        //     // if(vm.taskName) {
+        //     //     tasksService.getTask(vm.taskName).then(function(task) {
+        //     //         vm.task = task;
+        //     //     });
+        //     // }
 
-            //otherwise, let's assume 
-        }
+        //     //otherwise, let's assume 
+        // }
 
-        vm.saveTask = function() {
-            // tasksService.createTask(vm.task).then(function(results) {
-            //     $state.go('root.tasks.week');
-            // });
+        // vm.saveTask = function() {
+        //     // tasksService.createTask(vm.task).then(function(results) {
+        //     //     $state.go('root.tasks.week');
+        //     // });
 
-        }
+        // }
 
     }
 })();
