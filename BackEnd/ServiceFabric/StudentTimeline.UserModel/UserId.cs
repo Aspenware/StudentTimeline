@@ -16,6 +16,15 @@ namespace StudentTimeline.UserModel
         {
             this.id = Guid.NewGuid();
         }
+        public UserId(string Id)
+        {
+            Guid output = new Guid();
+
+            if (Guid.TryParse(Id, out output))
+                this.id = output;
+            else
+                this.id = Guid.Empty;
+        }
 
         public int CompareTo(object obj)
         {
