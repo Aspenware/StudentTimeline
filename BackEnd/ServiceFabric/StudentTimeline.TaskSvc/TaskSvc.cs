@@ -1,26 +1,86 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Fabric;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.ServiceFabric.Data.Collections;
 using Microsoft.ServiceFabric.Services.Communication.Runtime;
 using Microsoft.ServiceFabric.Services.Runtime;
+using Microsoft.ServiceFabric.Data;
+using StudentTimeline.TaskModel;
 
 namespace StudentTimeline.TaskSvc
 {
     /// <summary>
     /// An instance of this class is created for each service replica by the Service Fabric runtime.
     /// </summary>
-    internal sealed class TaskSvc : StatefulService
+    internal sealed class TaskSvc : StatefulService, ITaskSvc
     {
+        private const string taskItemDictionaryName = "taskItems";
+
         public TaskSvc(StatefulServiceContext context)
             : base(context)
         { }
+        
+        public async Task<TaskModel.Task> GetTaskByIDAsync(TaskModel.TaskId id)
+        {
+            IReliableDictionary<TaskModel.TaskId, TaskModel.Task> taskItems =
+                await this.StateManager.GetOrAddAsync<IReliableDictionary<TaskModel.TaskId, TaskModel.Task>>(taskItemDictionaryName);
+
+            TaskModel.Task returnTask = null;
+            using (ITransaction tx = this.StateManager.CreateTransaction())
+            {
+                var result = await taskItems.TryGetValueAsync(tx, id);
+
+                if (result.HasValue)
+                {
+                    returnTask = result.Value;
+                    ServiceEventSource.Current.ServiceMessage(this, "GetTaskByIDAsync Task item: {0}-{1}", returnTask.Id.ToString(), returnTask.Title);
+                }
+                else
+                    ServiceEventSource.Current.ServiceMessage(this, "GetTaskByIDAsync no Task found for itemid: {0}", id.ToString());
+            }
+
+            return returnTask;
+        }
+        public async Task<bool> CreateTaskAsync(TaskModel.Task taskToCreate)
+        {
+            IReliableDictionary<TaskModel.TaskId, TaskModel.Task> taskItems =
+                await this.StateManager.GetOrAddAsync<IReliableDictionary<TaskModel.TaskId, TaskModel.Task>>(taskItemDictionaryName);
+
+            using (ITransaction tx = this.StateManager.CreateTransaction())
+            {
+                await taskItems.AddAsync(tx, taskToCreate.Id, taskToCreate);
+                await tx.CommitAsync();
+                ServiceEventSource.Current.ServiceMessage(this, "Created Task Titled: {0}", taskToCreate.Title);
+            }
+
+            return true;
+        }
+        public async Task<bool> UpdateTaskAsync(TaskModel.Task taskToUpdate)
+        {
+            IReliableDictionary<TaskModel.TaskId, TaskModel.Task> taskItems =
+                await this.StateManager.GetOrAddAsync<IReliableDictionary<TaskModel.TaskId, TaskModel.Task>>(taskItemDictionaryName);
+
+            using (ITransaction tx = this.StateManager.CreateTransaction())
+            {
+                var result = await taskItems.TryGetValueAsync(tx, taskToUpdate.Id);
+
+                if (result.HasValue)
+                {
+
+                    // We have to store the item back in the dictionary in order to actually save it.
+                    // This will then replicate the updated item for
+                    await taskItems.SetAsync(tx, result.Value.Id, result.Value);
+                }
+                else
+                    ServiceEventSource.Current.ServiceMessage(this, "UpdateTask no Task found for itemid: {0}", taskToUpdate.Id.ToString());
+            }
+
+            return true;
+        }
 
         /// <summary>
-        /// Optional override to create listeners (e.g., HTTP, Service Remoting, WCF, etc.) for this service replica to handle client or user requests.
+        /// Optional override to create listeners (e.g., HTTP, Service Remoting, WCF, etc.) for this service replica to handle client or TaskModel.Task requests.
         /// </summary>
         /// <remarks>
         /// For more information on service communication, see http://aka.ms/servicefabricservicecommunication

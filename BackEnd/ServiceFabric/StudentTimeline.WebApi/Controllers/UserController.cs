@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Microsoft.ServiceFabric.Services.Remoting.Client;
-using Newtonsoft.Json;
 using StudentTimeline.Common;
 using StudentTimeline.UserModel;
 
@@ -12,7 +11,7 @@ namespace StudentTimeline.WebApi.Controllers
     public class UserController : ApiController
     {
 
-        private const string UserServiceName = "StudentTimeline.UserSvc";
+        private const string UserServiceName = "UserSvc";
 
         // GET api/User 
         public IEnumerable<string> Get()
@@ -21,12 +20,12 @@ namespace StudentTimeline.WebApi.Controllers
         }
 
         // GET api/User/5 
-        public Task<User> Get(int id)
+        public Task<User> Get(string id)
         {
-            UserId userId = new UserId();
+            UserId userId = new UserId(id);
 
             ServiceUriBuilder builder = new ServiceUriBuilder(UserServiceName);
-            IUserSvc userServiceClient = ServiceProxy.Create<IUserSvc>(builder.ToUri(), userId.GetPartitionKey());
+            IUserSvc userServiceClient = ServiceProxy.Create<IUserSvc>(builder.ToUri());
 
             try
             {
@@ -40,16 +39,14 @@ namespace StudentTimeline.WebApi.Controllers
         }
 
         // POST api/User 
-        public Task<bool> Post([FromBody]string value)
+        public bool Post(User thisUser)
         {
-            User thisUser = JsonConvert.DeserializeObject<User>(value);
-
             ServiceUriBuilder builder = new ServiceUriBuilder(UserServiceName);
-            IUserSvc userServiceClient = ServiceProxy.Create<IUserSvc>(builder.ToUri(), thisUser.Id.GetPartitionKey());
+            IUserSvc userServiceClient = ServiceProxy.Create<IUserSvc>(builder.ToUri());
 
             try
             {
-                return userServiceClient.CreateUserAsync(thisUser);
+                return userServiceClient.CreateUserAsync(thisUser).Result;
             }
             catch (Exception ex)
             {

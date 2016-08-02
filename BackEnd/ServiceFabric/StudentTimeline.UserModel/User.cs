@@ -1,17 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace StudentTimeline.UserModel
+﻿namespace StudentTimeline.UserModel
 {
     public class User
     {
+        UserId _Id = new UserId();
         /// <summary>
         /// Unique identifier for each user
         /// </summary>
-        public UserId Id { get; }
+        public UserId Id {
+            get {
+                return _Id;
+            }
+            set
+            {
+                _Id = value; ;
+            }
+        }
 
         /// <summary>
         /// User name

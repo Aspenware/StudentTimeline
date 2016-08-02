@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Fabric;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.ServiceFabric.Data;
@@ -44,7 +42,7 @@ namespace StudentTimeline.UserSvc
                 if (result.HasValue)
                 {
                     returnUser = result.Value;
-                    ServiceEventSource.Current.ServiceMessage(this, "GetUserByID user item: {0}", result.Value.Name);
+                    ServiceEventSource.Current.ServiceMessage(this, "GetUserByID user item: {0}-{1}", returnUser.Id.ToString(), returnUser.Name);
                 }
                 else
                     ServiceEventSource.Current.ServiceMessage(this, "GetUserByID no user found for itemid: {0}", id.ToString());

@@ -80,6 +80,16 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\StudentTimeline.Common\StudentTimeline.Common.csproj">
+      <Project>{9044cb37-0bc6-48d9-80b7-83c94eea5895}</Project>
+      <Name>StudentTimeline.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\StudentTimeline.TaskModel\StudentTimeline.TaskModel.csproj">
+      <Project>{136622e5-f1c5-4f4c-b926-5b39590d4e45}</Project>
+      <Name>StudentTimeline.TaskModel</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
