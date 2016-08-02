@@ -15,7 +15,7 @@
                 _Id = value; ;
             }
         }
-
+        
         /// <summary>
         /// User name
         /// </summary>

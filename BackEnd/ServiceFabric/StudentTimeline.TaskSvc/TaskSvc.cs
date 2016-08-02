@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Fabric;
 using System.Threading;
 using System.Threading.Tasks;
@@ -6,25 +7,25 @@ using Microsoft.ServiceFabric.Data.Collections;
 using Microsoft.ServiceFabric.Services.Communication.Runtime;
 using Microsoft.ServiceFabric.Services.Runtime;
 using Microsoft.ServiceFabric.Data;
-using StudentTimeline.TaskModel;
+using Microsoft.ServiceFabric.Services.Remoting.Runtime;
 
 namespace StudentTimeline.TaskSvc
 {
     /// <summary>
     /// An instance of this class is created for each service replica by the Service Fabric runtime.
     /// </summary>
-    internal sealed class TaskSvc : StatefulService, ITaskSvc
+    internal sealed class TaskSvc : StatefulService, TaskModel.ITaskSvc
     {
-        private const string taskItemDictionaryName = "taskItems";
+        private const string TaskItemDictionaryName = "taskItems";
 
         public TaskSvc(StatefulServiceContext context)
             : base(context)
         { }
         
-        public async Task<TaskModel.Task> GetTaskByIDAsync(TaskModel.TaskId id)
+        public async Task<TaskModel.Task> GetTaskByIdAsync(TaskModel.TaskId id)
         {
             IReliableDictionary<TaskModel.TaskId, TaskModel.Task> taskItems =
-                await this.StateManager.GetOrAddAsync<IReliableDictionary<TaskModel.TaskId, TaskModel.Task>>(taskItemDictionaryName);
+                await this.StateManager.GetOrAddAsync<IReliableDictionary<TaskModel.TaskId, TaskModel.Task>>(TaskItemDictionaryName);
 
             TaskModel.Task returnTask = null;
             using (ITransaction tx = this.StateManager.CreateTransaction())
@@ -42,10 +43,27 @@ namespace StudentTimeline.TaskSvc
 
             return returnTask;
         }
+        
+        public async Task<List<TaskModel.Task>> GetTaskListByUserIdAsync(Guid userId)
+        {
+            IReliableDictionary<TaskModel.TaskId, TaskModel.Task> taskItems =
+                await this.StateManager.GetOrAddAsync<IReliableDictionary<TaskModel.TaskId, TaskModel.Task>>(TaskItemDictionaryName);
+
+            return null;
+        }
+        
+        public async Task<List<TaskModel.Task>> GetTaskListByCourseIdAsync(Guid courseId)
+        {
+            IReliableDictionary<TaskModel.TaskId, TaskModel.Task> taskItems =
+                await this.StateManager.GetOrAddAsync<IReliableDictionary<TaskModel.TaskId, TaskModel.Task>>(TaskItemDictionaryName);
+
+            return null;
+        }
+
         public async Task<bool> CreateTaskAsync(TaskModel.Task taskToCreate)
         {
             IReliableDictionary<TaskModel.TaskId, TaskModel.Task> taskItems =
-                await this.StateManager.GetOrAddAsync<IReliableDictionary<TaskModel.TaskId, TaskModel.Task>>(taskItemDictionaryName);
+                await this.StateManager.GetOrAddAsync<IReliableDictionary<TaskModel.TaskId, TaskModel.Task>>(TaskItemDictionaryName);
 
             using (ITransaction tx = this.StateManager.CreateTransaction())
             {
@@ -56,10 +74,11 @@ namespace StudentTimeline.TaskSvc
 
             return true;
         }
+
         public async Task<bool> UpdateTaskAsync(TaskModel.Task taskToUpdate)
         {
             IReliableDictionary<TaskModel.TaskId, TaskModel.Task> taskItems =
-                await this.StateManager.GetOrAddAsync<IReliableDictionary<TaskModel.TaskId, TaskModel.Task>>(taskItemDictionaryName);
+                await this.StateManager.GetOrAddAsync<IReliableDictionary<TaskModel.TaskId, TaskModel.Task>>(TaskItemDictionaryName);
 
             using (ITransaction tx = this.StateManager.CreateTransaction())
             {
@@ -88,7 +107,10 @@ namespace StudentTimeline.TaskSvc
         /// <returns>A collection of listeners.</returns>
         protected override IEnumerable<ServiceReplicaListener> CreateServiceReplicaListeners()
         {
-            return new ServiceReplicaListener[0];
+            return new[]
+            {
+                new ServiceReplicaListener(context => this.CreateServiceRemotingListener(context))
+            };
         }
 
         /// <summary>

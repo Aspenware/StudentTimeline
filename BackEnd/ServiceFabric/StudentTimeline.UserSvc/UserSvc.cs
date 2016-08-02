@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.ServiceFabric.Data;
 using Microsoft.ServiceFabric.Data.Collections;
 using Microsoft.ServiceFabric.Services.Communication.Runtime;
+using Microsoft.ServiceFabric.Services.Remoting.Runtime;
 using Microsoft.ServiceFabric.Services.Runtime;
 using StudentTimeline.UserModel;
 
@@ -29,7 +30,30 @@ namespace StudentTimeline.UserSvc
         {
         }
 
-        public async Task<User> GetUserByIDAsync(UserId id)
+        public async Task<List<User>> GetAllUsersAsync(CancellationToken ct)
+        {
+            IReliableDictionary<UserId, User> userItems =
+                await this.StateManager.GetOrAddAsync<IReliableDictionary<UserId, User>>(UserItemDictionaryName);
+
+            List<User> results = new List<User>();
+
+            using (ITransaction tx = this.StateManager.CreateTransaction())
+            {
+                ServiceEventSource.Current.Message("Getting all {0} users.", await userItems.GetCountAsync(tx));
+
+                IAsyncEnumerator<KeyValuePair<UserId, User>> enumerator =
+                    (await userItems.CreateEnumerableAsync(tx)).GetAsyncEnumerator();
+
+                while (await enumerator.MoveNextAsync(ct))
+                {
+                    results.Add(enumerator.Current.Value);
+                }
+            }
+            
+            return results;
+        }
+
+        public async Task<User> GetUserByIdAsync(UserId id)
         {
             IReliableDictionary<UserId, User> userItems =
                 await this.StateManager.GetOrAddAsync<IReliableDictionary<UserId, User>>(UserItemDictionaryName);
@@ -50,7 +74,8 @@ namespace StudentTimeline.UserSvc
 
             return returnUser;
         }
-        public async Task<bool> CreateUserAsync(User userToCreate)
+
+        public async Task<User> CreateUserAsync(User userToCreate)
         {
             IReliableDictionary<UserId, User> userItems =
                 await this.StateManager.GetOrAddAsync<IReliableDictionary<UserId, User>>(UserItemDictionaryName);
@@ -62,16 +87,18 @@ namespace StudentTimeline.UserSvc
                 ServiceEventSource.Current.ServiceMessage(this, "Created user: {0}", userToCreate);
             }
 
-            return true;
+            return userToCreate;
         }
-        public async Task<bool> UpdateUserAsync(User userToUpdate)
+        public async Task<User> UpdateUserAsync(User userToUpdate)
         {
             IReliableDictionary<UserId, User> userItems =
                 await this.StateManager.GetOrAddAsync<IReliableDictionary<UserId, User>>(UserItemDictionaryName);
-            
+
+            ConditionalValue<User> result;
+
             using (ITransaction tx = this.StateManager.CreateTransaction())
             {
-                var result = await userItems.TryGetValueAsync(tx, userToUpdate.Id);
+                result = await userItems.TryGetValueAsync(tx, userToUpdate.Id);
 
                 if (result.HasValue)
                 {
@@ -89,7 +116,7 @@ namespace StudentTimeline.UserSvc
                     ServiceEventSource.Current.ServiceMessage(this, "UpdateUser no user found for itemid: {0}", userToUpdate.Id.ToString());
             }
 
-            return true;
+            return result.Value;
         }
 
         /// <summary>
@@ -101,7 +128,10 @@ namespace StudentTimeline.UserSvc
         /// <returns>A collection of listeners.</returns>
         protected override IEnumerable<ServiceReplicaListener> CreateServiceReplicaListeners()
         {
-            return new ServiceReplicaListener[0];
+            return new[]
+            {
+                new ServiceReplicaListener(context => this.CreateServiceRemotingListener(context))
+            };
         }
 
         /// <summary>

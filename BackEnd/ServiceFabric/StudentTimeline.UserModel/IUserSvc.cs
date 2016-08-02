@@ -1,14 +1,18 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.ServiceFabric.Services.Remoting;
 
 namespace StudentTimeline.UserModel
 {
     public interface IUserSvc : IService
     {
-        Task<User> GetUserByIDAsync(UserId id);
+        Task<List<User>> GetAllUsersAsync(CancellationToken ct);
 
-        Task<bool> CreateUserAsync(User userToCreate);
+        Task<User> GetUserByIdAsync(UserId id);
 
-        Task<bool> UpdateUserAsync(User userToUpdate);
+        Task<User> CreateUserAsync(User userToCreate);
+
+        Task<User> UpdateUserAsync(User userToUpdate);
     }
 }

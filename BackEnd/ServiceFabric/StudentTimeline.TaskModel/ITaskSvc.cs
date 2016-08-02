@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.ServiceFabric.Services.Remoting;
 
 namespace StudentTimeline.TaskModel
 {
-    public interface ITaskSvc
+    public interface ITaskSvc : IService
     {
-        Task<Task> GetTaskByIDAsync(TaskId id);
+        Task<Task> GetTaskByIdAsync(TaskId id);
 
-        Task<List<Task>> GetTaskListByUserIDAsync(Guid userId);
+        Task<List<Task>> GetTaskListByUserIdAsync(Guid userId);
 
-        Task<List<Task>> GetTaskListByCourseIDAsync(Guid courseId);
+        Task<List<Task>> GetTaskListByCourseIdAsync(Guid courseId);
 
         Task<bool> CreateTaskAsync(Task userToCreate);
 

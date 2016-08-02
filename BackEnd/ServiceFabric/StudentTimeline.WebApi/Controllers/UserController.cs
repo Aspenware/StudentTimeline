@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Microsoft.ServiceFabric.Services.Remoting.Client;
@@ -14,9 +15,20 @@ namespace StudentTimeline.WebApi.Controllers
         private const string UserServiceName = "UserSvc";
 
         // GET api/User 
-        public IEnumerable<string> Get()
+        public Task<List<User>> Get()
         {
-            return new string[] { "value1", "value2" };
+            ServiceUriBuilder builder = new ServiceUriBuilder(UserServiceName);
+            IUserSvc userServiceClient = ServiceProxy.Create<IUserSvc>(builder.ToUri());
+
+            try
+            {
+                return userServiceClient.GetAllUsersAsync(CancellationToken.None);
+            }
+            catch (Exception ex)
+            {
+                ServiceEventSource.Current.Message("User Controller: Exception getting all users", ex);
+                throw;
+            }
         }
 
         // GET api/User/5 
@@ -29,7 +41,7 @@ namespace StudentTimeline.WebApi.Controllers
 
             try
             {
-                return userServiceClient.GetUserByIDAsync(userId);
+                return userServiceClient.GetUserByIdAsync(userId);
             }
             catch (Exception ex)
             {
@@ -39,14 +51,14 @@ namespace StudentTimeline.WebApi.Controllers
         }
 
         // POST api/User 
-        public bool Post(User thisUser)
+        public Task<User> Post(User thisUser)
         {
             ServiceUriBuilder builder = new ServiceUriBuilder(UserServiceName);
             IUserSvc userServiceClient = ServiceProxy.Create<IUserSvc>(builder.ToUri());
 
             try
             {
-                return userServiceClient.CreateUserAsync(thisUser).Result;
+                return userServiceClient.CreateUserAsync(thisUser);
             }
             catch (Exception ex)
             {
@@ -55,9 +67,21 @@ namespace StudentTimeline.WebApi.Controllers
             }
         }
 
-        // PUT api/User/5 
-        public void Put(int id, [FromBody]string value)
+        // PUT api/User 
+        public Task<User> Put(User thisUser)
         {
+            ServiceUriBuilder builder = new ServiceUriBuilder(UserServiceName);
+            IUserSvc userServiceClient = ServiceProxy.Create<IUserSvc>(builder.ToUri());
+
+            try
+            {
+                return userServiceClient.UpdateUserAsync(thisUser);
+            }
+            catch (Exception ex)
+            {
+                ServiceEventSource.Current.Message("User Controller: Exception updating {0}: {1}", thisUser, ex);
+                throw;
+            }
         }
     }
 }
