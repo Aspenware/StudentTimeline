@@ -91,6 +91,7 @@
     <Compile Include="Course.cs" />
     <Compile Include="CourseId.cs" />
     <Compile Include="ICourse.cs" />
+    <Compile Include="ICourseSvc.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

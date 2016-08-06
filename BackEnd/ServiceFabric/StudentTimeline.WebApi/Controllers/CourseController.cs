@@ -1,35 +1,88 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Web.Http;
+using Microsoft.ServiceFabric.Services.Remoting.Client;
+using StudentTimeline.Common;
+using StudentTimeline.CourseModel;
 
 namespace StudentTimeline.WebApi.Controllers
 {
     public class CourseController : ApiController
     {
-        // GET api/values 
-        public IEnumerable<string> Get()
+
+        private const string CourseServiceName = "CourseSvc";
+
+        // GET api/Course 
+        public IQueryable<Course> Get()
         {
-            return new string[] { "value1", "value2" };
+            ServiceUriBuilder builder = new ServiceUriBuilder(CourseServiceName);
+            ICourseSvc CourseServiceClient = ServiceProxy.Create<ICourseSvc>(builder.ToUri());
+
+            try
+            {
+                return CourseServiceClient.GetAllCoursesAsync(CancellationToken.None).Result.AsQueryable();
+            }
+            catch (Exception ex)
+            {
+                ServiceEventSource.Current.Message("Course Controller: Exception getting all Courses", ex);
+                throw;
+            }
         }
 
-        // GET api/values/5 
-        public string Get(int id)
+        // GET api/Course/Guid
+        public Task<Course> Get(string id)
         {
-            return "value";
+            CourseId CourseId = new CourseId(id);
+
+            ServiceUriBuilder builder = new ServiceUriBuilder(CourseServiceName);
+            ICourseSvc CourseServiceClient = ServiceProxy.Create<ICourseSvc>(builder.ToUri());
+
+            try
+            {
+                return CourseServiceClient.GetCourseByIdAsync(CourseId);
+            }
+            catch (Exception ex)
+            {
+                ServiceEventSource.Current.Message("Course Controller: Exception getting {0}: {1}", id, ex);
+                throw;
+            }
         }
 
-        // POST api/values 
-        public void Post([FromBody]string value)
+        // POST api/Course 
+        public Task<Course> Post(Course thisCourse)
         {
+            ServiceUriBuilder builder = new ServiceUriBuilder(CourseServiceName);
+            ICourseSvc CourseServiceClient = ServiceProxy.Create<ICourseSvc>(builder.ToUri());
+
+            try
+            {
+                return CourseServiceClient.CreateCourseAsync(thisCourse);
+            }
+            catch (Exception ex)
+            {
+                ServiceEventSource.Current.Message("Course Controller: Exception creating {0}: {1}", thisCourse, ex);
+                throw;
+            }
         }
 
-        // PUT api/values/5 
-        public void Put(int id, [FromBody]string value)
+        // PUT api/Course 
+        public Task<Course> Put(Course thisCourse)
         {
-        }
+            ServiceUriBuilder builder = new ServiceUriBuilder(CourseServiceName);
+            ICourseSvc CourseServiceClient = ServiceProxy.Create<ICourseSvc>(builder.ToUri());
 
-        // DELETE api/values/5 
-        public void Delete(int id)
-        {
+            try
+            {
+                return CourseServiceClient.UpdateCourseAsync(thisCourse);
+            }
+            catch (Exception ex)
+            {
+                ServiceEventSource.Current.Message("Course Controller: Exception updating {0}: {1}", thisCourse, ex);
+                throw;
+            }
         }
     }
 }
