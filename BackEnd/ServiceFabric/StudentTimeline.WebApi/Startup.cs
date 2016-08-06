@@ -1,4 +1,5 @@
 ﻿using System.Web.Http;
+using System.Web.Http.OData.Extensions;
 using Owin;
 
 namespace StudentTimeline.WebApi
@@ -11,6 +12,8 @@ namespace StudentTimeline.WebApi
         {
             // Configure Web API for self-host. 
             HttpConfiguration config = new HttpConfiguration();
+
+            config.AddODataQueryFilter();
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",

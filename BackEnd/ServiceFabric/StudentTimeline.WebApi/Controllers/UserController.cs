@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -15,14 +16,14 @@ namespace StudentTimeline.WebApi.Controllers
         private const string UserServiceName = "UserSvc";
 
         // GET api/User 
-        public Task<List<User>> Get()
+        public IQueryable<User> Get()
         {
             ServiceUriBuilder builder = new ServiceUriBuilder(UserServiceName);
             IUserSvc userServiceClient = ServiceProxy.Create<IUserSvc>(builder.ToUri());
 
             try
             {
-                return userServiceClient.GetAllUsersAsync(CancellationToken.None);
+                return userServiceClient.GetAllUsersAsync(CancellationToken.None).Result.AsQueryable();
             }
             catch (Exception ex)
             {
@@ -31,7 +32,7 @@ namespace StudentTimeline.WebApi.Controllers
             }
         }
 
-        // GET api/User/5 
+        // GET api/User/Guid
         public Task<User> Get(string id)
         {
             UserId userId = new UserId(id);

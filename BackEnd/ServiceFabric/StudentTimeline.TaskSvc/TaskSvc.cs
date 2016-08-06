@@ -44,23 +44,30 @@ namespace StudentTimeline.TaskSvc
             return returnTask;
         }
         
-        public async Task<List<TaskModel.Task>> GetTaskListByUserIdAsync(Guid userId)
+        public async Task<List<TaskModel.Task>> GetAllTasksAsync(CancellationToken ct)
         {
             IReliableDictionary<TaskModel.TaskId, TaskModel.Task> taskItems =
                 await this.StateManager.GetOrAddAsync<IReliableDictionary<TaskModel.TaskId, TaskModel.Task>>(TaskItemDictionaryName);
 
-            return null;
-        }
-        
-        public async Task<List<TaskModel.Task>> GetTaskListByCourseIdAsync(Guid courseId)
-        {
-            IReliableDictionary<TaskModel.TaskId, TaskModel.Task> taskItems =
-                await this.StateManager.GetOrAddAsync<IReliableDictionary<TaskModel.TaskId, TaskModel.Task>>(TaskItemDictionaryName);
+            List<TaskModel.Task> results = new List<TaskModel.Task>();
 
-            return null;
+            using (ITransaction tx = this.StateManager.CreateTransaction())
+            {
+                ServiceEventSource.Current.Message("Getting all {0} users.", await taskItems.GetCountAsync(tx));
+
+                IAsyncEnumerator<KeyValuePair<TaskModel.TaskId, TaskModel.Task>> enumerator =
+                    (await taskItems.CreateEnumerableAsync(tx)).GetAsyncEnumerator();
+
+                while (await enumerator.MoveNextAsync(ct))
+                {
+                    results.Add(enumerator.Current.Value);
+                }
+            }
+
+            return results;
         }
 
-        public async Task<bool> CreateTaskAsync(TaskModel.Task taskToCreate)
+        public async Task<TaskModel.Task> CreateTaskAsync(TaskModel.Task taskToCreate)
         {
             IReliableDictionary<TaskModel.TaskId, TaskModel.Task> taskItems =
                 await this.StateManager.GetOrAddAsync<IReliableDictionary<TaskModel.TaskId, TaskModel.Task>>(TaskItemDictionaryName);
@@ -72,20 +79,28 @@ namespace StudentTimeline.TaskSvc
                 ServiceEventSource.Current.ServiceMessage(this, "Created Task Titled: {0}", taskToCreate.Title);
             }
 
-            return true;
+            return taskToCreate;
         }
 
-        public async Task<bool> UpdateTaskAsync(TaskModel.Task taskToUpdate)
+        public async Task<TaskModel.Task> UpdateTaskAsync(TaskModel.Task taskToUpdate)
         {
             IReliableDictionary<TaskModel.TaskId, TaskModel.Task> taskItems =
                 await this.StateManager.GetOrAddAsync<IReliableDictionary<TaskModel.TaskId, TaskModel.Task>>(TaskItemDictionaryName);
 
+            ConditionalValue<TaskModel.Task> result;
+
             using (ITransaction tx = this.StateManager.CreateTransaction())
             {
-                var result = await taskItems.TryGetValueAsync(tx, taskToUpdate.Id);
+                result = await taskItems.TryGetValueAsync(tx, taskToUpdate.Id);
 
                 if (result.HasValue)
                 {
+                    result.Value.CourseId = taskToUpdate.CourseId;
+                    result.Value.Description = taskToUpdate.Description;
+                    result.Value.DueDate = taskToUpdate.DueDate;
+                    result.Value.TaskType = taskToUpdate.TaskType;
+                    result.Value.Title = taskToUpdate.Title;
+                    result.Value.UserIds = taskToUpdate.UserIds;
 
                     // We have to store the item back in the dictionary in order to actually save it.
                     // This will then replicate the updated item for
@@ -95,7 +110,7 @@ namespace StudentTimeline.TaskSvc
                     ServiceEventSource.Current.ServiceMessage(this, "UpdateTask no Task found for itemid: {0}", taskToUpdate.Id.ToString());
             }
 
-            return true;
+            return result.Value;
         }
 
         /// <summary>

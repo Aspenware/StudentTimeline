@@ -17,6 +17,15 @@ namespace StudentTimeline.TaskModel
         {
             this.id = Guid.NewGuid();
         }
+        public TaskId(string Id)
+        {
+            Guid output = new Guid();
+
+            if (Guid.TryParse(Id, out output))
+                this.id = output;
+            else
+                this.id = Guid.Empty;
+        }
 
         public int CompareTo(object obj)
         {

@@ -40,17 +40,19 @@
     <Service Name="UserSvc">
       <StatefulService ServiceTypeName="UserSvcType" TargetReplicaSetSize="[UserSvc_TargetReplicaSetSize]" MinReplicaSetSize="[UserSvc_MinReplicaSetSize]">
         <!--<UniformInt64Partition PartitionCount="[UserSvc_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />-->
+        <!--<UniformInt64Partition PartitionCount="[CourseSvc_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />-->
+        <!--<UniformInt64Partition PartitionCount="[TaskSvc_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />-->
         <SingletonPartition />
       </StatefulService>
     </Service>
     <Service Name="CourseSvc">
       <StatefulService ServiceTypeName="CourseSvcType" TargetReplicaSetSize="[CourseSvc_TargetReplicaSetSize]" MinReplicaSetSize="[CourseSvc_MinReplicaSetSize]">
-        <UniformInt64Partition PartitionCount="[CourseSvc_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+        <SingletonPartition />
       </StatefulService>
     </Service>
     <Service Name="TaskSvc">
       <StatefulService ServiceTypeName="TaskSvcType" TargetReplicaSetSize="[TaskSvc_TargetReplicaSetSize]" MinReplicaSetSize="[TaskSvc_MinReplicaSetSize]">
-        <UniformInt64Partition PartitionCount="[TaskSvc_PartitionCount]" LowKey="-9223372036854775808" HighKey="9223372036854775807" />
+        <SingletonPartition />
       </StatefulService>
     </Service>
     <Service Name="WebApi">
