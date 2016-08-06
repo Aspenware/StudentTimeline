@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Fabric;
+using System.IO;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.ServiceFabric.Data;
@@ -134,31 +137,38 @@ namespace StudentTimeline.CourseSvc
         /// <param name="cancellationToken">Canceled when Service Fabric needs to shut down this service replica.</param>
         protected override async Task RunAsync(CancellationToken cancellationToken)
         {
-            // TODO: Replace the following sample code with your own logic 
-            //       or remove this RunAsync override if it's not needed in your service.
+            IReliableDictionary<CourseId, Course> courseItems =
+                await this.StateManager.GetOrAddAsync<IReliableDictionary<CourseId, Course>>(CourseItemDictionaryName);
 
-            //var myDictionary = await this.StateManager.GetOrAddAsync<IReliableDictionary<string, long>>("myDictionary");
+            var fileContents = string.Empty;
+            List<Course> courses = new List<Course>();
 
-            //while (true)
-            //{
-            //    cancellationToken.ThrowIfCancellationRequested();
+            try
+            {
+                using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("StudentTimeline.CourseSvc.CourseData.json"))
+                {
+                    using (var reader = new StreamReader(stream))
+                    {
+                        fileContents = reader.ReadToEnd();
+                    }
+                    courses = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Course>>(fileContents);
+                }
+            }
+            catch (Exception ex)
+            {
+                ServiceEventSource.Current.ServiceMessage(this, "Error loading Data.json. Error: {0} Stack: {1}", ex.Message, ex.StackTrace);
+            }
 
-            //    using (var tx = this.StateManager.CreateTransaction())
-            //    {
-            //        var result = await myDictionary.TryGetValueAsync(tx, "Counter");
+            foreach (var courseToCreate in courses)
+            {
 
-            //        ServiceEventSource.Current.ServiceMessage(this, "Current Counter Value: {0}",
-            //            result.HasValue ? result.Value.ToString() : "Value does not exist.");
-
-            //        await myDictionary.AddOrUpdateAsync(tx, "Counter", 0, (key, value) => ++value);
-
-            //        // If an exception is thrown before calling CommitAsync, the transaction aborts, all changes are 
-            //        // discarded, and nothing is saved to the secondary replicas.
-            //        await tx.CommitAsync();
-            //    }
-
-            //    await Task.Delay(TimeSpan.FromSeconds(1), cancellationToken);
-            //}
+                using (ITransaction tx = this.StateManager.CreateTransaction())
+                {
+                    await courseItems.AddAsync(tx, courseToCreate.Id, courseToCreate);
+                    await tx.CommitAsync();
+                    ServiceEventSource.Current.ServiceMessage(this, "Created course: {0}", courseToCreate);
+                }
+            }
         }
     }
 }

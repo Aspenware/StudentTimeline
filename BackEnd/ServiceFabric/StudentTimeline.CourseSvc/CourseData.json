@@ -1,0 +1,39 @@
+[
+  {
+    "id": {
+      "id": "01e9a322-7c3c-4e97-a469-52e876824c0d"
+
+    },
+    "title": "Chemistry 101",
+    "description": "Beginning Chemistry",
+    "taskIds": [
+      "01b59789-5d87-4f52-8708-effb01a9d9e2",
+      "02b59789-5d87-4f52-8708-effb01a9d9e2"
+
+    ],
+    "userIds": [
+      "c0c173db-b559-4698-95d0-0c8f3982f49b",
+      "b0c173db-b559-4698-95d0-0c8f3982f49b"
+
+    ]
+  },
+  {
+    "id": {
+      "id": "02e9a322-7c3c-4e97-a469-52e876824c0d"
+
+    },
+    "title": "Economics 330",
+    "description": "The History of Economics",
+    "taskIds": [
+      "03b59789-5d87-4f52-8708-effb01a9d9e2",
+      "04b59789-5d87-4f52-8708-effb01a9d9e2",
+      "06b59789-5d87-4f52-8708-effb01a9d9e2",
+      "05b59789-5d87-4f52-8708-effb01a9d9e2"
+    ],
+    "userIds": [
+      "a0c173db-b559-4698-95d0-0c8f3982f49b",
+      "d0c173db-b559-4698-95d0-0c8f3982f49b"
+
+    ]
+  }
+]

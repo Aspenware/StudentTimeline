@@ -1,0 +1,116 @@
+[
+  {
+    "id": {
+      "id": "01b59789-5d87-4f52-8708-effb01a9d9e2"
+
+    },
+    "userIds": [
+      "c0c173db-b559-4698-95d0-0c8f3982f49b",
+      "b0c173db-b559-4698-95d0-0c8f3982f49b"
+
+    ],
+    "courseId": "01e9a322-7c3c-4e97-a469-52e876824c0d",
+    "title": "First Exam",
+    "description": "This exam will cover the first 3 chapters",
+    "taskType": {
+      "taskTypeId": "03d725ce-243a-44b5-949b-34979f830222",
+      "title": "Exam"
+    },
+    "dueDate": "9/15/2016"
+  },
+  {
+    "id": {
+      "id": "02b59789-5d87-4f52-8708-effb01a9d9e2"
+
+    },
+    "userIds": [
+      "c0c173db-b559-4698-95d0-0c8f3982f49b",
+      "b0c173db-b559-4698-95d0-0c8f3982f49b"
+
+    ],
+    "courseId": "01e9a322-7c3c-4e97-a469-52e876824c0d",
+    "title": "Second Exam",
+    "description": "This exam will cover chapters 4 - 6",
+    "taskType": {
+      "taskTypeId": "03d725ce-243a-44b5-949b-34979f830222",
+      "title": "Exam"
+    },
+    "dueDate": "10/15/2016"
+  },
+  {
+    "id": {
+      "id": "03b59789-5d87-4f52-8708-effb01a9d9e2"
+
+    },
+    "userIds": [
+      "a0c173db-b559-4698-95d0-0c8f3982f49b",
+      "d0c173db-b559-4698-95d0-0c8f3982f49b"
+
+    ],
+    "courseId": "02e9a322-7c3c-4e97-a469-52e876824c0d",
+    "title": "First Exam",
+    "description": "This exam will cover the first 3 chapters",
+    "taskType": {
+      "taskTypeId": "03d725ce-243a-44b5-949b-34979f830222",
+      "title": "Exam"
+    },
+    "dueDate": "9/15/2016"
+  },
+  {
+    "id": {
+      "id": "04b59789-5d87-4f52-8708-effb01a9d9e2"
+
+    },
+    "userIds": [
+      "a0c173db-b559-4698-95d0-0c8f3982f49b",
+      "d0c173db-b559-4698-95d0-0c8f3982f49b"
+
+    ],
+    "courseId": "02e9a322-7c3c-4e97-a469-52e876824c0d",
+    "title": "Second Exam",
+    "description": "This exam will cover chapters 4 - 6",
+    "taskType": {
+      "taskTypeId": "03d725ce-243a-44b5-949b-34979f830222",
+      "title": "Exam"
+    },
+    "dueDate": "10/15/2016"
+  },
+  {
+    "id": {
+      "id": "05b59789-5d87-4f52-8708-effb01a9d9e2"
+
+    },
+    "userIds": [
+      "a0c173db-b559-4698-95d0-0c8f3982f49b",
+      "d0c173db-b559-4698-95d0-0c8f3982f49b"
+
+    ],
+    "courseId": "02e9a322-7c3c-4e97-a469-52e876824c0d",
+    "title": "First Homework Assignment",
+    "description": "Worksheet 1 is due",
+    "taskType": {
+      "taskTypeId": "01d725ce-243a-44b5-949b-34979f830222",
+      "title": "Homework Assignment"
+    },
+    "dueDate": "9/01/2016"
+  },
+  {
+    "id": {
+      "id": "06b59789-5d87-4f52-8708-effb01a9d9e2"
+
+    },
+    "userIds": [
+      "a0c173db-b559-4698-95d0-0c8f3982f49b",
+      "d0c173db-b559-4698-95d0-0c8f3982f49b"
+
+    ],
+    "courseId": "02e9a322-7c3c-4e97-a469-52e876824c0d",
+    "title": "Second Homework Assignment",
+    "description": "Worksheet 2 is due",
+    "taskType": {
+      "taskTypeId": "01d725ce-243a-44b5-949b-34979f830222",
+      "title": "Homework Assignment"
+    },
+    "dueDate": "10/01/2016"
+  }
+]

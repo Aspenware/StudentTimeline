@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Fabric;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.ServiceFabric.Data;
@@ -8,6 +10,7 @@ using Microsoft.ServiceFabric.Services.Communication.Runtime;
 using Microsoft.ServiceFabric.Services.Remoting.Runtime;
 using Microsoft.ServiceFabric.Services.Runtime;
 using StudentTimeline.UserModel;
+using System.Reflection;
 
 namespace StudentTimeline.UserSvc
 {
@@ -141,31 +144,38 @@ namespace StudentTimeline.UserSvc
         /// <param name="cancellationToken">Canceled when Service Fabric needs to shut down this service replica.</param>
         protected override async Task RunAsync(CancellationToken cancellationToken)
         {
-            // TODO: Replace the following sample code with your own logic 
-            //       or remove this RunAsync override if it's not needed in your service.
+            IReliableDictionary<UserId, User> userItems =
+                await this.StateManager.GetOrAddAsync<IReliableDictionary<UserId, User>>(UserItemDictionaryName);
+            
+            var fileContents = string.Empty;
+            List<User> users = new List<User>();
 
-            //var myDictionary = await this.StateManager.GetOrAddAsync<IReliableDictionary<string, long>>("myDictionary");
+            try
+            {
+                using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("StudentTimeline.UserSvc.UserData.json"))
+                {
+                    using (var reader = new StreamReader(stream))
+                    {
+                        fileContents = reader.ReadToEnd();
+                    }
+                    users = Newtonsoft.Json.JsonConvert.DeserializeObject<List<User>>(fileContents);
+                }
+            }
+            catch (Exception ex)
+            {
+                ServiceEventSource.Current.ServiceMessage(this, "Error loading Data.json. Error: {0} Stack: {1}", ex.Message, ex.StackTrace);
+            }
 
-            //while (true)
-            //{
-            //    cancellationToken.ThrowIfCancellationRequested();
+            foreach (var userToCreate in users)
+            {
 
-            //    using (var tx = this.StateManager.CreateTransaction())
-            //    {
-            //        var result = await myDictionary.TryGetValueAsync(tx, "Counter");
-
-            //        ServiceEventSource.Current.ServiceMessage(this, "Current Counter Value: {0}",
-            //            result.HasValue ? result.Value.ToString() : "Value does not exist.");
-
-            //        await myDictionary.AddOrUpdateAsync(tx, "Counter", 0, (key, value) => ++value);
-
-            //        // If an exception is thrown before calling CommitAsync, the transaction aborts, all changes are 
-            //        // discarded, and nothing is saved to the secondary replicas.
-            //        await tx.CommitAsync();
-            //    }
-
-            //    await Task.Delay(TimeSpan.FromSeconds(1), cancellationToken);
-            //}
+                using (ITransaction tx = this.StateManager.CreateTransaction())
+                {
+                    await userItems.AddAsync(tx, userToCreate.Id, userToCreate);
+                    await tx.CommitAsync();
+                    ServiceEventSource.Current.ServiceMessage(this, "Created user: {0}", userToCreate);
+                }
+            }
         }
     }
 }
