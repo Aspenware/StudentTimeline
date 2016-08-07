@@ -6,7 +6,7 @@
         'ionic',
 
         /* custom app modules */
-	'app.core',
+	    'app.core',
         'app.config',
         'app.shared',
 
