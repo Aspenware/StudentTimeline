@@ -2,12 +2,12 @@
     <ion-content ng-class="{expanded:$scope.isExpanded}">
         <div class="hero slide-up" style="background-image: url('img/profileBackground.jpg');">
             <div class="content">
-                <div class="avatar" style="background-image: url('img/benProfile.jpg');"></div>
-                <h3><a class="light">Ben Hoelting</a></h3>
-                <h4>Code Hound</h4>
+                <div class="avatar" style="background-image: url('img/benProfile.jpg'); margin-bottom: 0"></div>
+                <h3><a class="light">{{profile.name}}</a></h3>
+                <h4>{{profile.blurb}}</h4>
             </div>
         </div>
-        <div class="tabs tabs-dark tabs-icon-top static">
+        <div class="tabs tabs-dark tabs-icon-bottom static">
             <a ui-sref="app.pets" class="tab-item">
                 <i class="icon material-icons">school</i>Courses
             </a>
@@ -18,13 +18,15 @@
                 <i class="icon ion-android-people"></i>Friends
             </a>
         </div>
-        <h4 class="content padding double-padding-x">Active Pets</h4>
-        <div class="list animate-fade-slide-in-right">
-            <a data-ng-repeat="pet in pets | filter:{ active: 1 }" ui-sref="app.pet" class="item item-avatar">
-                <img ng-src="{{pet.Photo}}">
-                <h2>{{pet.Name}}</h2>
-                <p>{{pet.Description}}</p>
-            </a>            
+        <div class="list animate-fade-slide-in-right" style="background-color: #fff">
+            <div style="display: inline-flex; width: 100%">
+                <ion-md-input placeholder="Image" highlight-color="royal" type="text" ng-model="profile.profileImageUrl"></ion-md-input>
+                <button id="fab-profile-image" ng-click="addPhoto();" class="button button-fab expanded button-energized-900 spin" style="top: 21px;margin-right: 10px"><i class="icon ion-camera"></i></button>
+            </div>
+            <ion-md-input placeholder="Name" highlight-color="royal" type="text" ng-model="profile.name"></ion-md-input>
+            <ion-md-input placeholder="Blurb" highlight-color="royal" type="text" ng-model="profile.blurb"></ion-md-input>
+            <ion-md-input placeholder="Email" highlight-color="royal" type="text" ng-model="profile.email"></ion-md-input>
+            <ion-md-input placeholder="Password" highlight-color="energized" type="password" ng-model="profile.password"></ion-md-input>
         </div>
     </ion-content>
 </ion-view>

@@ -92,13 +92,6 @@ angular.module('starter.controllers', [])
         }
     };
 
-    $scope.clearFabsForHome = function () {
-        var fabs = document.getElementsByClassName('button-fab');
-        if (fabs.length && fabs.length > 0) {
-            fabs[0].remove();
-        }
-    };
-
 })
 
 .controller('LoginCtrl', function ($scope, $timeout, $state, $stateParams, $http, ionicMaterialInk) {
@@ -125,10 +118,9 @@ angular.module('starter.controllers', [])
 
     // Set Header
     $scope.$parent.showHeader();
-    $scope.$parent.clearFabsForHome();
-    $scope.isExpanded = false;
-    $scope.$parent.setExpanded(false);
-    $scope.$parent.setHeaderFab(false);
+    $scope.isExpanded = true;
+    $scope.$parent.setExpanded(true);
+    $scope.$parent.setHeaderFab('left');
 
     // Set Motion
     $timeout(function () {
@@ -143,13 +135,32 @@ angular.module('starter.controllers', [])
         });
     }, 700);
 
+    $timeout(function () {
+        document.getElementById('fab-profile-image').classList.toggle('on');
+    }, 1200);
+
+    $timeout(function () {
+        document.getElementById('fab-profile-save').classList.toggle('on');
+    }, 1200);
+
     // Set Ink
     ionicMaterialInk.displayEffect();
 
-    $scope.profile = sampleData.pets;
+    $scope.profile = userService.currentUser;
+
+    $scope.addPhoto = function () {
+        console.log('addPhoto: Start for ' + userService.currentUser.name);
+        userService.addPhoto();
+        console.log('addPhoto: End');
+    };
 })
 
-.controller('searchCtrl', function ($scope, $stateParams) {
+.controller('saveProfileCtrl', function ($scope, $stateParams) {
+
+    $scope.saveProfile = function () {
+        console.log('saveProfile: Start for ' + userService.currentUser.name);
+        console.log('saveProfile: End');
+    };
 })
 
 .controller('petsCtrl', function ($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {

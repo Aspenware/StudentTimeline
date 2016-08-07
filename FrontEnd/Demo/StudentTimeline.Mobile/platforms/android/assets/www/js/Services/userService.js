@@ -27,5 +27,23 @@
         });
     };
 
+    returnObj.addPhoto = function () {
+
+        navigator.camera.getPicture(onPhotoSuccess, onPhotoFail, {
+            quality: 50,
+            destinationType: Camera.DestinationType.FILE_URI
+        });
+    };
+
+    function onPhotoSuccess(imageURI) {
+        var avatar = document.getElementsByClassName('avatar');
+        avatar.setAttribute('style',"background-image: url('"+ imageURI +"'); margin-bottom: 0");
+    }
+
+    function onPhotoFail(message) {
+
+        alert('Failed because: ' + message);
+    }
+
     return returnObj;
 }());

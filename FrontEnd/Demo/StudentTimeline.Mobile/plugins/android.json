@@ -8,25 +8,25 @@
     },
     "installed_plugins": {
         "cordova-plugin-camera": {
-            "PACKAGE_NAME": "com.mtm.mobile"
+            "PACKAGE_NAME": "com.studenttimeline.mobile"
         },
         "cordova-plugin-console": {
-            "PACKAGE_NAME": "com.mtm.mobile"
+            "PACKAGE_NAME": "com.studenttimeline.mobile"
         },
         "cordova-plugin-contacts": {
-            "PACKAGE_NAME": "com.mtm.mobile"
+            "PACKAGE_NAME": "com.studenttimeline.mobile"
         },
         "cordova-plugin-device": {
-            "PACKAGE_NAME": "com.mtm.mobile"
+            "PACKAGE_NAME": "com.studenttimeline.mobile"
         },
         "cordova-plugin-statusbar": {
-            "PACKAGE_NAME": "com.mtm.mobile"
+            "PACKAGE_NAME": "com.studenttimeline.mobile"
         },
         "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "com.mtm.mobile"
+            "PACKAGE_NAME": "com.studenttimeline.mobile"
         },
         "ionic-plugin-keyboard": {
-            "PACKAGE_NAME": "com.mtm.mobile"
+            "PACKAGE_NAME": "com.studenttimeline.mobile"
         }
     },
     "dependent_plugins": {}

@@ -52,6 +52,10 @@ angular.module('starter', ['ionic', 'ionic-material', 'starter.controllers', 'io
             'menuContent': {
                 templateUrl: 'templates/profile.html',
                 controller: 'ProfileCtrl'
+            },
+            'fabContent': {
+                template: '<button id="fab-profile-save" ng-click="saveProfile();" class="button button-fab button-fab-top-left expanded button-energized-900 spin"><i class="icon ion-checkmark-round"></i></button>',
+                controller: 'saveProfileCtrl'
             }
         }
     })
@@ -121,7 +125,7 @@ angular.module('starter', ['ionic', 'ionic-material', 'starter.controllers', 'io
             }
         }
     })
-                
+
     .state('app.friends', {
         url: '/friends',
         views: {
@@ -131,7 +135,7 @@ angular.module('starter', ['ionic', 'ionic-material', 'starter.controllers', 'io
             },
             'fabContent': {
                 template: '<button id="fab-friends" ng-click="addContact()" class="button button-fab button-fab-top-left expanded button-energized-900 spin"><i class="icon ion-plus-round"></i></button>',
-                controller: 'addFriendFabButton' 
+                controller: 'addFriendFabButton'
             }
         }
     })
