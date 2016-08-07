@@ -1,4 +1,5 @@
 ﻿using System.Web.Http;
+using System.Web.Http.Cors;
 using System.Web.Http.OData.Extensions;
 using Owin;
 
@@ -14,6 +15,9 @@ namespace StudentTimeline.WebApi
             HttpConfiguration config = new HttpConfiguration();
 
             config.AddODataQueryFilter();
+
+            var cors = new EnableCorsAttribute("*", "*", "*");
+            config.EnableCors(cors);
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",

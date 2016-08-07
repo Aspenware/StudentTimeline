@@ -98,15 +98,27 @@ angular.module('starter.controllers', [])
             fabs[0].remove();
         }
     };
-    
+
 })
 
-.controller('LoginCtrl', function ($scope, $timeout, $stateParams, ionicMaterialInk) {
+.controller('LoginCtrl', function ($scope, $timeout, $state, $stateParams, $http, ionicMaterialInk) {
     $scope.$parent.clearFabs();
     $timeout(function () {
         $scope.$parent.hideHeader();
     }, 0);
     ionicMaterialInk.displayEffect();
+
+    $scope.loginVM = {
+        email: "",
+        password: ""
+    };
+
+    $scope.login = function () {
+
+        if ($scope.loginVM.email.length > 0)
+            userService.login($http, $state, $stateParams, $scope.loginVM.email);
+    };
+
 })
 
 .controller('ProfileCtrl', function ($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {
@@ -134,14 +146,14 @@ angular.module('starter.controllers', [])
     // Set Ink
     ionicMaterialInk.displayEffect();
 
-    $scope.pets = sampleData.pets;
+    $scope.profile = sampleData.pets;
 })
 
 .controller('searchCtrl', function ($scope, $stateParams) {
 })
 
 .controller('petsCtrl', function ($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {
-    
+
     //// Set Header
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
@@ -151,7 +163,7 @@ angular.module('starter.controllers', [])
 
     // Activate ink for controller
     ionicMaterialInk.displayEffect();
-        
+
     $timeout(function () {
         ionicMaterialMotion.fadeSlideInRight({
             selector: '.animate-fade-slide-in .item',
@@ -244,7 +256,7 @@ angular.module('starter.controllers', [])
 
             sampleData.friends.push(newContact);
 
-            $state.transitionTo($state.current, $stateParams, {reload: true});
+            $state.transitionTo($state.current, $stateParams, { reload: true });
 
         }, function (err) {
             console.log('Error: ' + err);
