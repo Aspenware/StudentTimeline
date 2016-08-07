@@ -46,16 +46,6 @@ angular.module('starter', ['ionic', 'ionic-material', 'starter.controllers', 'io
         }
     })
 
-    .state('app.home', {
-        url: '/home',
-        views: {
-            'menuContent': {
-                templateUrl: 'templates/home.html',
-                controller: 'HomeCtrl'
-            }
-        }
-    })
-
     .state('app.profile', {
         url: '/profile',
         views: {

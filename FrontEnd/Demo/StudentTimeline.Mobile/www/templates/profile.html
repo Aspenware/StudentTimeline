@@ -9,7 +9,7 @@
         </div>
         <div class="tabs tabs-dark tabs-icon-top static">
             <a ui-sref="app.pets" class="tab-item">
-                <i class="icon material-icons">pets</i>Manage Pets
+                <i class="icon material-icons">school</i>Courses
             </a>
             <a ui-sref="app.tasks" class="tab-item">
                 <i class="icon ion-checkmark-circled"></i>Tasks
@@ -20,24 +20,11 @@
         </div>
         <h4 class="content padding double-padding-x">Active Pets</h4>
         <div class="list animate-fade-slide-in-right">
-            <a ui-sref="app.pet" class="item item-avatar item-icon-right">
-                <img src="img/Kona.jpg">
-                <h2>Kona</h2>
-                <p>Cutest Puppy Alive</p>
-                <i class="icon ion-chatbubble muted"></i>
-            </a>
-            <a ui-sref="app.pet" class="item item-avatar item-icon-right">
-                <img src="img/Spike.jpg">
-                <h2>Spike</h2>
-                <p>Loves Tom and jerry</p>
-                <i class="icon ion-chatbubble muted"></i>
-            </a>
-            <a ui-sref="app.pet" class="item item-avatar item-icon-right">
-                <img src="img/Lassie.jpg">
-                <h2>Lassie</h2>
-                <p>Smart Cookie</p>
-                <i class="icon ion-chatbubble muted"></i>
-            </a>
+            <a data-ng-repeat="pet in pets | filter:{ active: 1 }" ui-sref="app.pet" class="item item-avatar">
+                <img ng-src="{{pet.Photo}}">
+                <h2>{{pet.Name}}</h2>
+                <p>{{pet.Description}}</p>
+            </a>            
         </div>
     </ion-content>
 </ion-view>
