@@ -7,6 +7,7 @@ using System.Web.Http;
 using Microsoft.ServiceFabric.Services.Remoting.Client;
 using StudentTimeline.Common;
 using StudentTimeline.UserModel;
+using StudentTimeline.WebApi.ReturnModels;
 
 namespace StudentTimeline.WebApi.Controllers
 {
@@ -16,14 +17,23 @@ namespace StudentTimeline.WebApi.Controllers
         private const string UserServiceName = "UserSvc";
 
         // GET api/User 
-        public IQueryable<User> Get()
+        public IQueryable<ReturnUser> Get()
         {
             ServiceUriBuilder builder = new ServiceUriBuilder(UserServiceName);
             IUserSvc userServiceClient = ServiceProxy.Create<IUserSvc>(builder.ToUri());
 
+            List<ReturnUser> returnUsers = new List<ReturnUser>();
+
             try
             {
-                return userServiceClient.GetAllUsersAsync(CancellationToken.None).Result.AsQueryable();
+                var users = userServiceClient.GetAllUsersAsync(CancellationToken.None).Result.AsQueryable();
+
+                foreach (var user in users.Take(1000))
+                {
+                    returnUsers.Add(new ReturnUser(user));
+                }
+
+                return returnUsers.AsQueryable();
             }
             catch (Exception ex)
             {
@@ -33,7 +43,7 @@ namespace StudentTimeline.WebApi.Controllers
         }
 
         // GET api/User/Guid
-        public Task<User> Get(string id)
+        public ReturnUser Get(string id)
         {
             UserId userId = new UserId(id);
 
@@ -42,7 +52,7 @@ namespace StudentTimeline.WebApi.Controllers
 
             try
             {
-                return userServiceClient.GetUserByIdAsync(userId);
+                return new ReturnUser(userServiceClient.GetUserByIdAsync(userId).Result);
             }
             catch (Exception ex)
             {

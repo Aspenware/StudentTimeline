@@ -124,6 +124,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\TaskController.cs" />
     <Compile Include="OwinCommunicationListener.cs" />
+    <Compile Include="ReturnModels\ReturnCourseShort.cs" />
+    <Compile Include="ReturnModels\ReturnCourse.cs" />
+    <Compile Include="ReturnModels\ReturnUser.cs" />
+    <Compile Include="ReturnModels\ReturnTaskShort.cs" />
+    <Compile Include="ReturnModels\ReturnTaskType.cs" />
+    <Compile Include="ReturnModels\ReturnTask.cs" />
     <Compile Include="WebApi.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ServiceEventSource.cs" />

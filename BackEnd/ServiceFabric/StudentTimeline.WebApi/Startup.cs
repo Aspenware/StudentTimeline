@@ -21,6 +21,18 @@ namespace StudentTimeline.WebApi
                 defaults: new { id = RouteParameter.Optional }
             );
 
+            config.Routes.MapHttpRoute(
+                name: "ByUserApi",
+                routeTemplate: "api/{controller}/User/{userId}",
+                defaults: new { userId = RouteParameter.Optional }
+            );
+
+            config.Routes.MapHttpRoute(
+                name: "ByCourseApi",
+                routeTemplate: "api/{controller}/Course/{courseId}",
+                defaults: new { courseId = RouteParameter.Optional }
+            );
+
             appBuilder.UseWebApi(config);
         }
     }

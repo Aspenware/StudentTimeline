@@ -19,11 +19,11 @@ namespace StudentTimeline.WebApi.Controllers
         public IQueryable<Course> Get()
         {
             ServiceUriBuilder builder = new ServiceUriBuilder(CourseServiceName);
-            ICourseSvc CourseServiceClient = ServiceProxy.Create<ICourseSvc>(builder.ToUri());
+            ICourseSvc courseServiceClient = ServiceProxy.Create<ICourseSvc>(builder.ToUri());
 
             try
             {
-                return CourseServiceClient.GetAllCoursesAsync(CancellationToken.None).Result.AsQueryable();
+                return courseServiceClient.GetAllCoursesAsync(CancellationToken.None).Result.AsQueryable();
             }
             catch (Exception ex)
             {
@@ -35,14 +35,14 @@ namespace StudentTimeline.WebApi.Controllers
         // GET api/Course/Guid
         public Task<Course> Get(string id)
         {
-            CourseId CourseId = new CourseId(id);
+            CourseId courseId = new CourseId(id);
 
             ServiceUriBuilder builder = new ServiceUriBuilder(CourseServiceName);
-            ICourseSvc CourseServiceClient = ServiceProxy.Create<ICourseSvc>(builder.ToUri());
+            ICourseSvc courseServiceClient = ServiceProxy.Create<ICourseSvc>(builder.ToUri());
 
             try
             {
-                return CourseServiceClient.GetCourseByIdAsync(CourseId);
+                return courseServiceClient.GetCourseByIdAsync(courseId);
             }
             catch (Exception ex)
             {
@@ -55,11 +55,11 @@ namespace StudentTimeline.WebApi.Controllers
         public Task<Course> Post(Course thisCourse)
         {
             ServiceUriBuilder builder = new ServiceUriBuilder(CourseServiceName);
-            ICourseSvc CourseServiceClient = ServiceProxy.Create<ICourseSvc>(builder.ToUri());
+            ICourseSvc courseServiceClient = ServiceProxy.Create<ICourseSvc>(builder.ToUri());
 
             try
             {
-                return CourseServiceClient.CreateCourseAsync(thisCourse);
+                return courseServiceClient.CreateCourseAsync(thisCourse);
             }
             catch (Exception ex)
             {
@@ -72,11 +72,11 @@ namespace StudentTimeline.WebApi.Controllers
         public Task<Course> Put(Course thisCourse)
         {
             ServiceUriBuilder builder = new ServiceUriBuilder(CourseServiceName);
-            ICourseSvc CourseServiceClient = ServiceProxy.Create<ICourseSvc>(builder.ToUri());
+            ICourseSvc courseServiceClient = ServiceProxy.Create<ICourseSvc>(builder.ToUri());
 
             try
             {
-                return CourseServiceClient.UpdateCourseAsync(thisCourse);
+                return courseServiceClient.UpdateCourseAsync(thisCourse);
             }
             catch (Exception ex)
             {
