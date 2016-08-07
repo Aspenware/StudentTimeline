@@ -1,0 +1,33 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "cordova-plugin-camera": {
+            "PACKAGE_NAME": "com.mtm.mobile"
+        },
+        "cordova-plugin-console": {
+            "PACKAGE_NAME": "com.mtm.mobile"
+        },
+        "cordova-plugin-contacts": {
+            "PACKAGE_NAME": "com.mtm.mobile"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.mtm.mobile"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "com.mtm.mobile"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.mtm.mobile"
+        },
+        "ionic-plugin-keyboard": {
+            "PACKAGE_NAME": "com.mtm.mobile"
+        }
+    },
+    "dependent_plugins": {}
+}

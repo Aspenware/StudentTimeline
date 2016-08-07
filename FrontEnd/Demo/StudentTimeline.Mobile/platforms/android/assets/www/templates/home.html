@@ -1,0 +1,30 @@
+<ion-view view-title="Home">
+    <ion-content ng-class="{expanded:$scope.isExpanded}">
+        <div class="hero slide-up" style="background-image: url('img/profileBackground.jpg');">
+            <div class="content">
+                <div class="avatar" style="background-image: url('img/benProfile.jpg');"></div>
+                <h3><a class="light">Ben Hoelting</a></h3>
+                <h4>Code Hound</h4>
+            </div>
+        </div>
+        <div class="tabs tabs-dark tabs-icon-top static">
+            <a ui-sref="app.pets" class="tab-item">
+                <i class="icon material-icons">pets</i>Pets
+            </a>
+            <a ui-sref="app.tasks" class="tab-item">
+                <i class="icon ion-checkmark-circled"></i>Tasks
+            </a>
+            <a ui-sref="app.friends" class="tab-item">
+                <i class="icon ion-android-people"></i>Friends
+            </a>
+        </div>
+        <h4 class="content padding double-padding-x">Active Pets</h4>
+        <div class="list animate-fade-slide-in-right">
+            <a data-ng-repeat="pet in pets | filter:{ active: 1 }" ui-sref="app.pet" class="item item-avatar">
+                <img ng-src="{{pet.Photo}}">
+                <h2>{{pet.Name}}</h2>
+                <p>{{pet.Description}}</p>
+            </a>            
+        </div>
+    </ion-content>
+</ion-view>
