@@ -6,7 +6,6 @@ h1 {
     font-size: 42px;
 }
 
-
 /* Utilities
 ==================================*/
 .title-bordered {
@@ -71,7 +70,7 @@ p {
 ==================================*/
 .app-icon {
     background-color: #fff;
-    background: url('../img/mtm-logo.png') center;
+    background: url('../img/StudentTimeline-Logo.png') center;
     background-size: cover;
     border-radius: 50%;
     height: 125px;

@@ -1,6 +1,6 @@
 ﻿var userService = (function () {
     var returnObj = {};
-    var serviceUrl = "http://10.0.0.39:8661/api/User";
+    var serviceUrl = "http://awstudenttimelinedev.westus.cloudapp.azure.com:8661/api/User";
 
     returnObj.login = function ($http, $state, $stateParams, email) {
 
@@ -36,8 +36,9 @@
     };
 
     function onPhotoSuccess(imageURI) {
-        var avatar = document.getElementsByClassName('avatar');
-        avatar.setAttribute('style',"background-image: url('"+ imageURI +"'); margin-bottom: 0");
+        var avatar = document.getElementById('profileImage');
+        avatar.setAttribute('style', "background-image: url('" + imageURI + "'); margin-bottom: 0");
+        returnObj.currentUser.profileImageUrl = imageURI;
     }
 
     function onPhotoFail(message) {

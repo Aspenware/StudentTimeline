@@ -2,7 +2,7 @@
     <ion-content ng-class="{expanded:$scope.isExpanded}">
         <div class="hero slide-up" style="background-image: url('img/profileBackground.jpg');">
             <div class="content">
-                <div class="avatar" ng-attr-style="background-image: url('{{profile.profileImageUrl}}'); margin-bottom: 0"></div>
+                <div id="profileImage" class="avatar" ng-attr-style="background-image: url('{{profile.profileImageUrl}}'); margin-bottom: 0"></div>
                 <h3><a class="light">{{profile.name}}</a></h3>
                 <h4>{{profile.blurb}}</h4>
             </div>

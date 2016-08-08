@@ -1,6 +1,6 @@
 ﻿var taskService = (function () {
     var returnObj = {};
-    var serviceUrl = "http://10.0.0.39:8661/api/Task/User/";
+    var serviceUrl = "http://awstudenttimelinedev.westus.cloudapp.azure.com:8661/api/Task/User/";
 
     returnObj.getTasks = function ($http, callback) {
 

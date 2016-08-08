@@ -85,6 +85,11 @@ angular.module('starter.controllers', [])
         $scope.hasHeader();
     };
 
+    $scope.checkUser = function ($state, $stateParams) {
+        if (userService.currentUser === undefined)
+            $state.transitionTo('app.login', $stateParams);
+    };
+
     $scope.clearFabs = function () {
         var fabs = document.getElementsByClassName('button-fab');
         if (fabs.length && fabs.length > 1) {
@@ -92,30 +97,43 @@ angular.module('starter.controllers', [])
         }
     };
 
-    $scope.clearFabsForHome = function () {
+    $scope.clearFabsLogin = function () {
         var fabs = document.getElementsByClassName('button-fab');
         if (fabs.length && fabs.length > 0) {
             fabs[0].remove();
         }
     };
-    
 })
 
-.controller('LoginCtrl', function ($scope, $timeout, $stateParams, ionicMaterialInk) {
-    $scope.$parent.clearFabs();
+.controller('LoginCtrl', function ($scope, $timeout, $state, $stateParams, $http, ionicMaterialInk) {
+    $scope.$parent.clearFabsLogin();
     $timeout(function () {
         $scope.$parent.hideHeader();
     }, 0);
     ionicMaterialInk.displayEffect();
+
+    $scope.loginVM = {
+        email: "",
+        password: ""
+    };
+
+    $scope.login = function () {
+
+        if ($scope.loginVM.email.length > 0)
+            userService.login($http, $state, $stateParams, $scope.loginVM.email);
+    };
+
 })
 
-.controller('ProfileCtrl', function ($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {
+.controller('ProfileCtrl', function ($scope, $state, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {
+
+    $scope.$parent.checkUser($state, $stateParams);
+
     // Set Header
     $scope.$parent.showHeader();
-    $scope.$parent.clearFabs();
-    $scope.isExpanded = false;
-    $scope.$parent.setExpanded(false);
-    $scope.$parent.setHeaderFab(false);
+    $scope.isExpanded = true;
+    $scope.$parent.setExpanded(true);
+    $scope.$parent.setHeaderFab('left');
 
     // Set Motion
     $timeout(function () {
@@ -130,43 +148,38 @@ angular.module('starter.controllers', [])
         });
     }, 700);
 
-    // Set Ink
-    ionicMaterialInk.displayEffect();
-})
-
-.controller('HomeCtrl', function ($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {
-
-    // Set Header
-    $scope.$parent.showHeader();
-    $scope.$parent.clearFabsForHome();
-    $scope.isExpanded = false;
-    $scope.$parent.setExpanded(false);
-    $scope.$parent.setHeaderFab(false);
-
-    // Set Motion
     $timeout(function () {
-        ionicMaterialMotion.slideUp({
-            selector: '.slide-up'
-        });
-    }, 300);
+        document.getElementById('fab-profile-image').classList.toggle('on');
+    }, 1200);
 
     $timeout(function () {
-        ionicMaterialMotion.fadeSlideInRight({
-            startVelocity: 3000
-        });
-    }, 700);
+        document.getElementById('fab-profile-save').classList.toggle('on');
+    }, 1200);
 
     // Set Ink
     ionicMaterialInk.displayEffect();
 
-    $scope.pets = sampleData.pets;
+    $scope.profile = userService.currentUser;
+
+    $scope.addPhoto = function () {
+        console.log('addPhoto: Start for ' + userService.currentUser.name);
+        userService.addPhoto();
+        console.log('addPhoto: End');
+    };
 })
 
-.controller('searchCtrl', function ($scope, $stateParams) {
+.controller('saveProfileCtrl', function ($scope, $stateParams) {
+
+    $scope.saveProfile = function () {
+        console.log('saveProfile: Start for ' + userService.currentUser.name);
+        console.log('saveProfile: End');
+    };
 })
 
-.controller('petsCtrl', function ($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {
-    
+.controller('tasksCtrl', function ($scope, $state, $stateParams, $http, $timeout, ionicMaterialMotion, ionicMaterialInk) {
+
+    $scope.$parent.checkUser($state, $stateParams);
+
     //// Set Header
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
@@ -176,7 +189,7 @@ angular.module('starter.controllers', [])
 
     // Activate ink for controller
     ionicMaterialInk.displayEffect();
-        
+
     $timeout(function () {
         ionicMaterialMotion.fadeSlideInRight({
             selector: '.animate-fade-slide-in .item',
@@ -184,14 +197,16 @@ angular.module('starter.controllers', [])
         });
     }, 700);
 
-    $scope.pets = sampleData.pets;
+    taskService.getTasks($http, function () { $scope.tasks = taskService.taskList; });
 
 })
 
-.controller('petCtrl', function ($scope, $stateParams) {
+.controller('taskCtrl', function ($scope, $stateParams) {
 })
 
-.controller('tasksCtrl', function ($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {
+.controller('coursesCtrl', function ($scope, $state, $stateParams, $http, $timeout, ionicMaterialMotion, ionicMaterialInk) {
+
+    $scope.$parent.checkUser($state, $stateParams);
 
     // Set Header
     $scope.$parent.showHeader();
@@ -214,13 +229,17 @@ angular.module('starter.controllers', [])
     // Activate ink for controller
     ionicMaterialInk.displayEffect();
 
-    $scope.tasks = sampleData.tasks;
+    courseService.getCourses($http, function() {
+         $scope.courses = courseService.courseList;
+    });
 })
 
-.controller('taskCtrl', function ($scope, $stateParams) {
+.controller('courseCtrl', function ($scope, $stateParams) {
 })
 
-.controller('friendsCtrl', function ($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {
+.controller('friendsCtrl', function ($scope, $state, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {
+
+    $scope.$parent.checkUser($state, $stateParams);
 
     // Set Header
     $scope.$parent.showHeader();
@@ -269,7 +288,7 @@ angular.module('starter.controllers', [])
 
             sampleData.friends.push(newContact);
 
-            $state.transitionTo($state.current, $stateParams, {reload: true});
+            $state.transitionTo($state.current, $stateParams, { reload: true });
 
         }, function (err) {
             console.log('Error: ' + err);
