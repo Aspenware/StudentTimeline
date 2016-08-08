@@ -4,10 +4,10 @@
       "id": "a0c173db-b559-4698-95d0-0c8f3982f49b"
 
     },
-    "name": "Adam Jones",
-    "email": "a.jones@aspenware.com",
+    "name": "Ben Hoelting",
+    "email": "b.hoelting@aspenware.com",
     "blurb": "I am a junior majoring in Economics",
-    "profileImageUrl": "https://azure.storgage.com/image1.jpg"
+    "profileImageUrl": "img/benProfile.jpg"
   },
   {
     "id": {
@@ -16,7 +16,7 @@
     "name": "Ben Johnson",
     "email": "b.johnson@aspenware.com",
     "blurb": "I am a undeclared freshman",
-    "profileImageUrl": "https://azure.storgage.com/image2.jpg"
+    "profileImageUrl": "img/user.jpg"
   },
   {
     "id": {
@@ -25,7 +25,7 @@
     "name": "Christine Martinez",
     "email": "c.martinez@aspenware.com",
     "blurb": "I am a junior majoring in Bio Chemistry",
-    "profileImageUrl": "https://azure.storgage.com/image3.jpg"
+    "profileImageUrl": "img/user.jpg"
   },
   {
     "id": {
@@ -34,7 +34,7 @@
     "name": "John Smith",
     "email": "j.smith@aspenware.com",
     "blurb": "I am a Senior majoring in Economics",
-    "profileImageUrl": "https://azure.storgage.com/image4.jpg"
+    "profileImageUrl": "img/user.jpg"
   },
   {
     "id": {
@@ -43,6 +43,6 @@
     "name": "Ellen Barnes",
     "email": "e.barnes@aspenware.com",
     "blurb": "I am a junior majoring in Astro Physics",
-    "profileImageUrl": "https://azure.storgage.com/image5.jpg"
+    "profileImageUrl": "img/user.jpg"
   }
 ]

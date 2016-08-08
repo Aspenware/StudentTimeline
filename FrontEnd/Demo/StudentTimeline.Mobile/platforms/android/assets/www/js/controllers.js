@@ -85,6 +85,11 @@ angular.module('starter.controllers', [])
         $scope.hasHeader();
     };
 
+    $scope.checkUser = function ($state, $stateParams) {
+        if (userService.currentUser === undefined)
+            $state.transitionTo('app.login', $stateParams);
+    };
+
     $scope.clearFabs = function () {
         var fabs = document.getElementsByClassName('button-fab');
         if (fabs.length && fabs.length > 1) {
@@ -92,10 +97,16 @@ angular.module('starter.controllers', [])
         }
     };
 
+    $scope.clearFabsLogin = function () {
+        var fabs = document.getElementsByClassName('button-fab');
+        if (fabs.length && fabs.length > 0) {
+            fabs[0].remove();
+        }
+    };
 })
 
 .controller('LoginCtrl', function ($scope, $timeout, $state, $stateParams, $http, ionicMaterialInk) {
-    $scope.$parent.clearFabs();
+    $scope.$parent.clearFabsLogin();
     $timeout(function () {
         $scope.$parent.hideHeader();
     }, 0);
@@ -114,7 +125,9 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('ProfileCtrl', function ($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {
+.controller('ProfileCtrl', function ($scope, $state, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {
+
+    $scope.$parent.checkUser($state, $stateParams);
 
     // Set Header
     $scope.$parent.showHeader();
@@ -163,7 +176,9 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('petsCtrl', function ($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {
+.controller('tasksCtrl', function ($scope, $state, $stateParams, $http, $timeout, ionicMaterialMotion, ionicMaterialInk) {
+
+    $scope.$parent.checkUser($state, $stateParams);
 
     //// Set Header
     $scope.$parent.showHeader();
@@ -182,14 +197,16 @@ angular.module('starter.controllers', [])
         });
     }, 700);
 
-    $scope.pets = sampleData.pets;
+    taskService.getTasks($http, function () { $scope.tasks = taskService.taskList; });
 
 })
 
-.controller('petCtrl', function ($scope, $stateParams) {
+.controller('taskCtrl', function ($scope, $stateParams) {
 })
 
-.controller('tasksCtrl', function ($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {
+.controller('coursesCtrl', function ($scope, $state, $stateParams, $http, $timeout, ionicMaterialMotion, ionicMaterialInk) {
+
+    $scope.$parent.checkUser($state, $stateParams);
 
     // Set Header
     $scope.$parent.showHeader();
@@ -212,13 +229,17 @@ angular.module('starter.controllers', [])
     // Activate ink for controller
     ionicMaterialInk.displayEffect();
 
-    $scope.tasks = sampleData.tasks;
+    courseService.getCourses($http, function() {
+         $scope.courses = courseService.courseList;
+    });
 })
 
-.controller('taskCtrl', function ($scope, $stateParams) {
+.controller('courseCtrl', function ($scope, $stateParams) {
 })
 
-.controller('friendsCtrl', function ($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {
+.controller('friendsCtrl', function ($scope, $state, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {
+
+    $scope.$parent.checkUser($state, $stateParams);
 
     // Set Header
     $scope.$parent.showHeader();

@@ -1,6 +1,6 @@
 ﻿var userService = (function () {
     var returnObj = {};
-    var serviceUrl = "http://localhost:8661/api/User";
+    var serviceUrl = "http://10.0.0.39:8661/api/User";
 
     returnObj.login = function ($http, $state, $stateParams, email) {
 

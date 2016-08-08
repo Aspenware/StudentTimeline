@@ -1,0 +1,13 @@
+<ion-view view-title="Tasks">
+    <ion-content ng-class="{expanded:isExpanded}">
+        <div class="content has-header">
+            <div class="list animate-fade-slide-in">
+                <a data-ng-repeat="task in tasks" ui-sref="app.task" class="item item-avatar">
+                    <img ng-src="{{task.Pet.Photo}}">
+                    <h2>{{task.Pet.Name}}</h2>
+                    <p>{{task.Title}}</p>
+                </a>
+        </div>
+    </ion-content>
+</ion-view>
+

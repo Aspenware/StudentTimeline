@@ -54,46 +54,36 @@ angular.module('starter', ['ionic', 'ionic-material', 'starter.controllers', 'io
                 controller: 'ProfileCtrl'
             },
             'fabContent': {
-                template: '<button id="fab-profile-save" ng-click="saveProfile();" class="button button-fab button-fab-top-left expanded button-energized-900 spin"><i class="icon ion-checkmark-round"></i></button>',
+                template: '<button id="fab-profile-save" ng-click="saveProfile();" class="button button-fab button-fab-top-left expanded button-energized-900 spin"><i class="icon material-icons">save</i></button>',
                 controller: 'saveProfileCtrl'
             }
         }
     })
 
-    .state('app.search', {
-        url: '/search',
+    .state('app.courses', {
+        url: '/courses',
         views: {
             'menuContent': {
-                templateUrl: 'templates/search.html',
-                controller: 'searchCtrl'
-            }
-        }
-    })
-
-    .state('app.pets', {
-        url: '/pets',
-        views: {
-            'menuContent': {
-                templateUrl: 'templates/pets.html',
-                controller: 'petsCtrl'
+                templateUrl: 'templates/courses.html',
+                controller: 'coursesCtrl'
             },
             'fabContent': {
-                template: '<button id="fab-pets" onClick="utilities.addPhoto();" class="button button-fab button-fab-top-left expanded button-energized-900 spin"><i class="icon ion-plus-round"></i></button>',
+                template: '<button id="fab-courses" onClick="utilities.addPhoto();" class="button button-fab button-fab-top-left expanded button-energized-900 spin"><i class="icon ion-plus-round"></i></button>',
                 controller: function ($timeout) {
                     $timeout(function () {
-                        document.getElementById('fab-pets').classList.toggle('on');
+                        document.getElementById('fab-courses').classList.toggle('on');
                     }, 900);
                 }
             }
         }
     })
 
-    .state('app.pet', {
-        url: '/pets/:petId',
+    .state('app.course', {
+        url: '/courses/:courseId',
         views: {
             'menuContent': {
-                templateUrl: 'templates/pet.html',
-                controller: 'petCtrl'
+                templateUrl: 'templates/course.html',
+                controller: 'courseCtrl'
             }
         }
     })

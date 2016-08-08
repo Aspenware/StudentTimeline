@@ -1,0 +1,14 @@
+<ion-view view-title="Courses">
+    <ion-content ng-class="{expanded:isExpanded}">
+        <div class="content has-header">
+            <div class="list animate-fade-slide-in">
+                <a data-ng-repeat="course in courses" ui-sref="app.course" class="item item-avatar">
+                    <img src="img/Graduation-cap-icon.jpg"/>
+                    <h2>{{course.Title}}</h2>
+                    <p>{{course.Description}}</p>
+                </a>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
+

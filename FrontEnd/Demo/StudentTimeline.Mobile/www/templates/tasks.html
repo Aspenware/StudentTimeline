@@ -1,13 +1,25 @@
 <ion-view view-title="Tasks">
-    <ion-content ng-class="{expanded:isExpanded}">
-        <div class="content has-header">
-            <div class="list animate-fade-slide-in">
-                <a data-ng-repeat="task in tasks" ui-sref="app.task" class="item item-avatar">
-                    <img ng-src="{{task.Pet.Photo}}">
-                    <h2>{{task.Pet.Name}}</h2>
-                    <p>{{task.Title}}</p>
-                </a>
+    <ion-content ng-class="{expanded:isExpanded}" class="animate-fade-slide-in">
+        <div class="list has-header">
+            <div data-ng-repeat="task in tasks | orderBy:'dueDate'" class="card card-gallery item item-text-wrap col-45">
+                <div class="ink dark-bg blue-bg">
+                    <i ng-if="task.taskType.title !== 'Exam'" class="icon material-icons" style="color: white; float: left; padding: 5px;">content_copy</i>
+                    <i ng-if="task.taskType.title === 'Exam'" class="icon material-icons" style="color: white; float: left; padding: 5px;">report</i>
+                    <h2 style="float: right; padding: 5px;">{{task.course.title}}</h2>
+                </div>
+                <div>
+                    <h2>{{task.title}}</h2>
+                    <div style="padding: 12px;">{{task.description}}</div>
+                </div>
+                <div class="tabs tabs-dark tabs-icon-top static">
+                    <a ui-sref="app.task" class="tab-item">
+                        <i class="icon material-icons">create</i>Edit
+                    </a>
+                    <a ui-sref="app.course" class="tab-item">
+                        <i class="icon material-icons">school</i>Course
+                    </a>
+                </div>
+            </div>
         </div>
     </ion-content>
 </ion-view>
-

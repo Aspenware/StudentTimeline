@@ -22,8 +22,8 @@
         <param name="android-package" value="io.ionic.keyboard.IonicKeyboard" />
         <param name="onload" value="true" />
     </feature>
-    <name>Mind the Mutt</name>
-    <description>Meet the Mutt helps pet owners enjoy thier pets by taking the pain of everyday tasks.</description>
+    <name>Student Timeline</name>
+    <description>Demo app to show off what TACO can do.</description>
     <author email="you@example.com" href="http://example.com.com/">Ben Hoelting</author>
     <content src="index.html" />
     <access origin="*" />
